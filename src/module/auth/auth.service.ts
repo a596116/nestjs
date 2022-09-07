@@ -9,7 +9,7 @@ import { Auth, AuthDocument } from '../db/schema/auth.schema'
 import { Model } from 'mongoose'
 
 const svgCaptcha = require('svg-captcha')
-const logger = new Logger('auth.service')
+// const logger = new Logger('auth.service')
 
 @Injectable()
 export class AuthService {
@@ -47,7 +47,7 @@ export class AuthService {
                 return this.response
             })
             .catch(err => {
-                logger.error(err)
+                // logger.error(err)
                 return err
             })
     }
@@ -86,7 +86,7 @@ export class AuthService {
                 }
             })
             .catch(err => {
-                logger.log(`${user.name}:${err.message}`)
+                // logger.log(`${user.name}:${err.message}`)
                 return this.response
             })
     }
@@ -145,7 +145,7 @@ export class AuthService {
                 return this.response
             })
             .catch(err => {
-                logger.error(err)
+                // logger.error(err)
                 return err
             })
     }
@@ -184,7 +184,7 @@ export class AuthService {
                 }
             })
             .catch(err => {
-                logger.warn(err)
+                // logger.warn(err)
                 return err
             })
     }

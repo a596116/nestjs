@@ -3,10 +3,10 @@ import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { DocumentBuilder, SwaggerCustomOptions, SwaggerModule } from '@nestjs/swagger'
-import { Log4jsLogger } from '@nestx-log4js/core'
+// import { Log4jsLogger } from '@nestx-log4js/core'
 import { AppModule } from './app.module'
 
-const logger = new Logger("main.ts")
+// const logger = new Logger("main.ts")
 
 /**
  * @description 主方法
@@ -48,9 +48,10 @@ const bootstrap = async () => {
   /**
    * 使用Log4js 日誌框架
    */
-  app.useLogger(app.get(Log4jsLogger))
+  // app.useLogger(app.get(Log4jsLogger))
   await app.listen(port, () => {
-    logger.log(`${config.get<string>('BASE_URL')}/api`)
+    console.log(`${config.get<string>('BASE_URL')}/api`)
+    // logger.log(`${config.get<string>('BASE_URL')}/api`)
   })
 }
 

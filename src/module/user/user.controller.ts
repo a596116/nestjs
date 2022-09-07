@@ -30,6 +30,8 @@ export class UserController {
         summary: "獲取用戶訊息(使用手機號)"
     })
     async getUserInfo(@Query() phone: findUserInfoDto): Promise<IResponse> {
+        console.log(phone)
+
         return await this.service.getUserInfo(phone.phone)
     }
 }

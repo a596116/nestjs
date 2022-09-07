@@ -6,7 +6,7 @@ import { InjectModel } from '@nestjs/mongoose'
 import { Auth, AuthDocument } from '../db/schema/auth.schema'
 import { Model } from 'mongoose'
 
-const logger = new Logger('user.service')
+// const logger = new Logger('user.service')
 @Injectable()
 export class UserService {
     @InjectModel(Auth.name)
@@ -41,7 +41,7 @@ export class UserService {
                 }
             })
             .catch(err => {
-                logger.warn(err)
+                // logger.warn(err)
                 return this.response = {
                     code: 40000,
                     message: err
@@ -79,7 +79,7 @@ export class UserService {
                 }
             })
             .catch(res => {
-                logger.warn(res)
+                // logger.warn(res)
                 return this.response
             })
     }
