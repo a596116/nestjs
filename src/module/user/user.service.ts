@@ -1,17 +1,17 @@
 // import { RedisService } from '@liaoliaots/nestjs-redis'
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
+import { Injectable, Logger } from '@nestjs/common'
 import { IResponse } from 'src/common/interface/response.interface'
-import { Repository } from 'typeorm'
-import { User } from './user.entity'
 // import Redis from 'ioredis'
-import { encript } from 'src/utils/Encription'
+import { InjectModel } from '@nestjs/mongoose'
+import { Auth, AuthDocument } from '../db/schema/auth.schema'
+import { Model } from 'mongoose'
 
 const logger = new Logger('user.service')
 @Injectable()
 export class UserService {
-    @InjectRepository(User)
-    private readonly repository: Repository<User>
+    @InjectModel(Auth.name)
+    private authModel: Model<AuthDocument>
+
     private response: IResponse
     // private redis: Redis
     constructor(
@@ -26,16 +26,16 @@ export class UserService {
      */
     async getAllUser(): Promise<IResponse> {
         const users = []
-        return await this.repository.find()
+        return await this.authModel.find()
             .then(async res => {
                 res.forEach(user => {
-                    users.push({ ...user, permissions: user.permissions.split(',') })
+                    users.push(user)
                 })
                 return this.response = {
                     code: 20000,
                     message: '獲取成功',
                     data: {
-                        count: await this.repository.count(),
+                        count: await this.authModel.count(),
                         rows: users
                     }
                 }
@@ -53,31 +53,23 @@ export class UserService {
      * 根據帳號獲取用戶
      * @date 2022-08-27
      */
-    async findOneByAccount(phone: string): Promise<User> {
-        return await this.repository.findOne({ where: { phone } })
-            .then(res => {
-                if (res) {
-                    return { ...res, permissions: res.permissions.split(',') }
-                } else {
-                    return res
-                }
-            })
+    async findOneByPhone(phone: string): Promise<any> {
+        return await this.authModel.findOne({ phone })
+            .then(res => res)
     }
 
     /**
-     * 獲取用戶資訊（未完成）
+     * 獲取用戶資訊
      * @date 2022-08-29
      */
     async getUserInfo(phone: string): Promise<IResponse> {
-        return this.findOneByAccount(phone)
+        return this.findOneByPhone(phone)
             .then(res => {
                 if (res) {
+                    Object.assign(res, { password: '' })
                     return this.response = {
                         code: 20000,
-                        data: {
-                            ...res,
-                            password: encript(res.password, res.name)
-                        }
+                        data: res
                     }
                 } else {
                     throw this.response = {
@@ -85,6 +77,10 @@ export class UserService {
                         message: '獲取用戶失敗'
                     }
                 }
+            })
+            .catch(res => {
+                logger.warn(res)
+                return this.response
             })
     }
 

@@ -1,10 +1,7 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { AuthService } from './auth.service'
 import { AuthController } from './auth.controller'
-import { UserService } from '../user/user.service'
 import { UserModule } from '../user/user.module'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { User } from '../user/user.entity'
 import { JwtModule } from '@nestjs/jwt'
 import { JWT_CONSTANT } from './jwt.constant'
 import { JwtStrategy } from './jwt.strategy'
@@ -15,7 +12,6 @@ import { HashPasswordMiddleware } from 'src/common/middleware/hash-password.midd
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
     UserModule,
     JwtModule.register({
       secret: JWT_CONSTANT.secret

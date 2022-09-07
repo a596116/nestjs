@@ -7,7 +7,7 @@
 # Nestjs開發網頁後端接口
 
 ## Description
-使用mysql搭配typeorm框架建立資料庫，並使用Redis緩存數據
+使用mongodb建立資料庫，並使用Redis緩存數據
 
 ## 安裝依賴
 

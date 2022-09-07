@@ -1,11 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
 import { IResponse } from 'src/common/interface/response.interface'
 import { encript } from 'src/utils/Encription'
 import { alterUserInfoDto, alterUserPasswordDto, CreateUserDto, LoginUserDto } from '../../common/dto/user.dto'
-import { User } from '../user/user.entity'
 import { UserService } from '../user/user.service'
-import { Repository } from 'typeorm'
 import { JwtService } from '@nestjs/jwt'
 import { InjectModel } from '@nestjs/mongoose'
 import { Auth, AuthDocument } from '../db/schema/auth.schema'
@@ -19,8 +16,6 @@ export class AuthService {
     @InjectModel(Auth.name)
     private authModel: Model<AuthDocument>
 
-    @InjectRepository(User)
-    private readonly repository: Repository<User>
     private response: IResponse
     private pointer: number = 0
     private captchas = {}
@@ -76,9 +71,7 @@ export class AuthService {
                 try {
                     const createUser = new this.authModel({ ...CreateUserDto })
                     Object.assign(createUser, user)
-                    console.log(createUser)
-
-                    // createUser.save()
+                    createUser.save()
                     this.response = {
                         code: 20000,
                         message: "用戶註冊成功"
@@ -103,19 +96,16 @@ export class AuthService {
      * @date 2022-08-26
      */
     async alter(user: alterUserInfoDto) {
-        return this.repository.findOne({ where: { id: user.id } })
+        return this.authModel.findOne({ where: { id: user.id } })
             .then(async res => {
                 if (res) {
-                    return await this.validateUser({ ...res, password: user.password })
+                    return await this.validateUser(Object.assign(res, { password: user.password }))
                         .then(async res => {
                             if (res.code !== 20000) {
                                 throw res
                             }
-                            this.repository.createQueryBuilder()
-                                .update('user')
-                                .set({ password: encript(user.password, user.name), name: user.name, phone: user.phone })
-                                .where("id = :id", { id: user.id })
-                                .execute()
+                            this.authModel.findByIdAndUpdate(user.id, { password: encript(user.password, user.name), name: user.name, phone: user.phone })
+                                .exec()
                             this.response = {
                                 code: 20000,
                                 message: '用戶資訊修改成功'
@@ -146,11 +136,8 @@ export class AuthService {
                     this.response = res
                     throw this.response
                 }
-                this.repository.createQueryBuilder()
-                    .update('user')
-                    .set({ password: encript(user.newPassword, res.data.userName) })
-                    .where("id = :id", { id: res.data.userid })
-                    .execute()
+                this.authModel.findByIdAndUpdate(res.data.userid, { password: encript(user.newPassword, res.data.userName) })
+                    .exec()
                 this.response = {
                     code: 20000,
                     message: '密碼修改成功'
@@ -167,10 +154,10 @@ export class AuthService {
    * 用戶登入驗證
    * @date 2022-08-26
    */
-    private async validateUser(user: User | alterUserPasswordDto | alterUserInfoDto) {
+    private async validateUser(user: Auth | alterUserPasswordDto | alterUserInfoDto | LoginUserDto) {
         const phone: string = user.phone
         const password: string = user.password
-        return await this.userService.findOneByAccount(phone)
+        return await this.userService.findOneByPhone(phone)
             .then(res => {
                 if (res == null) {
                     this.response = {
@@ -181,7 +168,7 @@ export class AuthService {
                 }
                 return res
             })
-            .then((dbUser: User) => {
+            .then((dbUser: any) => {
                 const pass = encript(password, dbUser.name)
                 if (pass === dbUser.password) {
                     return this.response = {
@@ -206,7 +193,7 @@ export class AuthService {
      * 創建token
      * @date 2022-08-26
      */
-    private async createToken(user: User) {
+    private async createToken(user: any) {
         return await this.jwtService.signAsync(user.phone)
     }
 

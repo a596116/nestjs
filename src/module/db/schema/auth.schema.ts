@@ -20,8 +20,8 @@ export class Auth {
     @Prop()
     active?: string
 
-    @Prop()
-    permissions?: string
+    @Prop([String])
+    permissions?: string[]
 }
 
 export const AuthSchema = SchemaFactory.createForClass(Auth)

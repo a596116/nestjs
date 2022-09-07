@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
+import { IsArray, IsNotEmpty, IsString } from 'class-validator'
 
 export class LoginUserDto {
-    @IsEmail()
-    @ApiProperty({ required: true, description: 'phone', default: 'a596116@gmail.com' })
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty({ required: true, description: 'phone', default: '0912345678' })
     public phone: string
 
     @IsString()
@@ -37,10 +38,10 @@ export class CreateUserDto {
     @ApiProperty({ required: true, description: 'active', default: '1' })
     public active?: string
 
-    @IsString()
+    @IsArray()
     @IsNotEmpty()
-    @ApiProperty({ required: true, description: 'permissions', default: 'user' })
-    public permissions?: string | any
+    @ApiProperty({ required: true, description: 'permissions', default: ['user', 'admin'] })
+    public permissions?: string[]
 
 }
 

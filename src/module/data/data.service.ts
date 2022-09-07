@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { InjectRepository } from '@nestjs/typeorm'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
 import { IResponse } from 'src/common/interface/response.interface'
-import { Repository } from 'typeorm'
-import { User } from '../user/user.entity'
+import { Auth, AuthDocument } from '../db/schema/auth.schema'
 import { UserService } from '../user/user.service'
 
 @Injectable()
 export class DataService {
-    @InjectRepository(User)
-    private readonly repository: Repository<User>
+    @InjectModel(Auth.name)
+    private authModel: Model<AuthDocument>
+
     private response: IResponse
 
     constructor(
@@ -18,11 +19,7 @@ export class DataService {
     ) { }
 
     async alterUserAvatar(id: number, filename: string): Promise<IResponse> {
-        return await this.repository.createQueryBuilder()
-            .update('user')
-            .set({ avatar: `${this.config.get<string>('BASE_URL')}/avatar/${filename}` })
-            .where("id = :id", { id: id })
-            .execute()
+        return await this.authModel.findByIdAndUpdate(id, { avatar: `${this.config.get<string>('BASE_URL')}/avatar/${filename}` })
             .then(res => {
                 return this.response = {
                     code: 20000,

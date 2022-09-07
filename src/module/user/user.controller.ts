@@ -4,7 +4,6 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { IResponse } from 'src/common/interface/response.interface'
 import { Role } from '../role/role.decorator'
 import { findUserInfoDto } from '../../common/dto/user.dto'
-import { User } from './user.entity'
 import { UserService } from './user.service'
 import { TransformInterceptor } from 'src/common/interception/transform.interception'
 
@@ -20,7 +19,7 @@ export class UserController {
     @ApiOperation({
         summary: "查尋所有用戶"
     })
-    @UseInterceptors(TransformInterceptor) //格式化日期
+    // @UseInterceptors(TransformInterceptor) //格式化日期
     findAll() {
         return this.service.getAllUser()
     }
@@ -28,13 +27,9 @@ export class UserController {
 
     @Get('info')
     @ApiOperation({
-        summary: "獲取用戶訊息(使用帳號)"
+        summary: "獲取用戶訊息(使用手機號)"
     })
     async getUserInfo(@Query() phone: findUserInfoDto): Promise<IResponse> {
-        const user = await this.service.findOneByAccount(phone.phone)
-        return {
-            code: 20000,
-            data: { ...user, password: '' }
-        }
+        return await this.service.getUserInfo(phone.phone)
     }
 }

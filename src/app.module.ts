@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { getEnvPath } from './common/helper/env.helper'
-import { TypeOrmConfigService } from './shared/typeorm/typeorm.service'
 import { ApiModule } from './module/api.module'
 import { Log4jsModule } from '@nestx-log4js/core'
 // import { RedisModule } from '@liaoliaots/nestjs-redis'
@@ -15,9 +13,6 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`)
     ConfigModule.forRoot({
       envFilePath,
       isGlobal: true
-    }),
-    TypeOrmModule.forRootAsync({
-      useClass: TypeOrmConfigService
     }),
     Log4jsModule.forRoot(),
     /**

@@ -13,7 +13,8 @@ const MONGO_MODELS = MongooseModule.forFeature([
 @Global()
 @Module({
     imports: [
-        MongooseModule.forRoot('mongodb://127.0.0.1:27017/nestjs'),
+        // MongooseModule.forRoot('mongodb://127.0.0.1:27017/nestjs'),
+        MongooseModule.forRoot('mongodb+srv://vercel-admin-user:Gsf4KRIwZrFLUwBp@cluster0.wltmkac.mongodb.net/nestjs'),
         MONGO_MODELS
     ],
     exports: [MONGO_MODELS]
