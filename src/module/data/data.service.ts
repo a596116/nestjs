@@ -10,7 +10,6 @@ import { UserService } from '../user/user.service'
 export class DataService {
     @InjectModel(Auth.name)
     private authModel: Model<AuthDocument>
-
     private response: IResponse
 
     constructor(
@@ -24,6 +23,35 @@ export class DataService {
                 return this.response = {
                     code: 20000,
                     message: '上傳頭像成功',
+                }
+            })
+    }
+
+    /**
+     * 獲取所有用戶
+     * @date 2022-08-27
+     */
+    async getAllUser(page: number): Promise<IResponse> {
+        const users = []
+        return await this.authModel.find().skip(5 * (page - 1)).limit(5)
+            .then(async res => {
+                res.forEach(user => {
+                    users.push(user)
+                })
+                return this.response = {
+                    code: 20000,
+                    message: '獲取成功',
+                    data: {
+                        count: await this.authModel.count(),
+                        rows: users
+                    }
+                }
+            })
+            .catch(err => {
+                // logger.warn(err)
+                return this.response = {
+                    code: 40000,
+                    message: err
                 }
             })
     }

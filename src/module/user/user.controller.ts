@@ -5,7 +5,6 @@ import { IResponse } from 'src/common/interface/response.interface'
 import { Role } from '../role/role.decorator'
 import { findUserInfoDto } from '../../common/dto/user.dto'
 import { UserService } from './user.service'
-import { TransformInterceptor } from 'src/common/interception/transform.interception'
 
 @ApiTags('用戶模塊')
 @Controller('user')
@@ -14,16 +13,6 @@ import { TransformInterceptor } from 'src/common/interception/transform.intercep
 export class UserController {
     @Inject(UserService)
     private readonly service: UserService
-
-    @Get()
-    @ApiOperation({
-        summary: "查尋所有用戶"
-    })
-    // @UseInterceptors(TransformInterceptor) //格式化日期
-    findAll() {
-        return this.service.getAllUser()
-    }
-
 
     @Get('info')
     @ApiOperation({
