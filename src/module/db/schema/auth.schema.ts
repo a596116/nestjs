@@ -3,7 +3,7 @@ import { Document } from 'mongoose'
 
 export type AuthDocument = Auth & Document
 
-@Schema()
+@Schema({ timestamps: true, collection: 'discountGroups' })
 export class Auth {
     @Prop()
     name: string
@@ -22,6 +22,12 @@ export class Auth {
 
     @Prop([String])
     permissions?: string[]
+
+    @Prop()
+    created_At: string
+
+    @Prop()
+    updated_At: string
 }
 
 export const AuthSchema = SchemaFactory.createForClass(Auth)

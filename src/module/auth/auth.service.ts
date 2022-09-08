@@ -96,7 +96,7 @@ export class AuthService {
      * @date 2022-08-26
      */
     async alter(user: alterUserInfoDto) {
-        return this.authModel.findOne({ where: { id: user.id } })
+        return this.authModel.findOne({ where: { _id: user._id } })
             .then(async res => {
                 if (res) {
                     return await this.validateUser(Object.assign(res, { password: user.password }))
@@ -104,7 +104,7 @@ export class AuthService {
                             if (res.code !== 20000) {
                                 throw res
                             }
-                            this.authModel.findByIdAndUpdate(user.id, { password: encript(user.password, user.name), name: user.name, phone: user.phone })
+                            this.authModel.findByIdAndUpdate(user._id, { password: encript(user.password, user.name), name: user.name, phone: user.phone })
                                 .exec()
                             this.response = {
                                 code: 20000,

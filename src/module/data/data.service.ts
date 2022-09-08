@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, UseInterceptors } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { InjectModel } from '@nestjs/mongoose'
-import { Model } from 'mongoose'
+import { Model, ObjectId } from 'mongoose'
+import { TransformInterceptor } from 'src/common/interception/transform.interception'
 import { IResponse } from 'src/common/interface/response.interface'
 import { Auth, AuthDocument } from '../db/schema/auth.schema'
 import { UserService } from '../user/user.service'
@@ -52,6 +53,16 @@ export class DataService {
                 return this.response = {
                     code: 40000,
                     message: err
+                }
+            })
+    }
+
+    async alterData(table: string, id: number, obj: object): Promise<IResponse> {
+        return this.authModel.findByIdAndUpdate(id, obj)
+            .then(res => {
+                return this.response = {
+                    code: 20000,
+                    message: '修改成功'
                 }
             })
     }

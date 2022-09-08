@@ -55,7 +55,7 @@ export class findUserInfoDto {
 export class alterUserInfoDto {
     @IsNotEmpty()
     @ApiProperty({ required: true, description: 'id', default: '1' })
-    public id: number
+    public _id: number
 
     @IsString()
     @IsNotEmpty()

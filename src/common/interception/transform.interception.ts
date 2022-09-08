@@ -8,7 +8,10 @@ export class TransformInterceptor implements NestInterceptor {
         // 格式化日期
         return next.handle().pipe(
             map((data) => {
-                data.data.rows[0].createdAt = data.data.rows[0].createdAt.toLocaleString()
+                data.data.rows.map(d => {
+                    d.created_At = d.createdAt.toLocaleString('en-GB')
+                    return d
+                })
                 return data
             }),
         )
