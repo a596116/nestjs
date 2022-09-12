@@ -28,19 +28,12 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
-## 資料庫配置-Mysql
+## 資料庫配置-MongoDB
 
 ``` bash
-# 開發環境 src/common/envs/development.env
-# 佈署環境 src/common/envs/.env
-PORT=3000
-BASE_URL=http://localhost:3000
+# src/module/db/db.module.ts
+MongooseModule.forRoot('mongodb://127.0.0.1:27017/nestjs'),
 
-DATABASE_HOST=localhost
-DATABASE_NAME=nestjs
-DATABASE_USER=root
-DATABASE_PASSWORD=123456
-DATABASE_PORT=3306
 ```
 
 ## 接口文檔
