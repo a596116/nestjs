@@ -2,7 +2,7 @@ import { Injectable, UseInterceptors } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model, ObjectId } from 'mongoose'
-import { TransformInterceptor } from 'src/common/interception/transform.interception'
+import { error, success } from 'src/common/helper'
 import { IResponse } from 'src/common/interface/response.interface'
 import { Auth, AuthDocument } from '../db/schema/auth.schema'
 import { UserService } from '../user/user.service'
@@ -11,7 +11,6 @@ import { UserService } from '../user/user.service'
 export class DataService {
     @InjectModel(Auth.name)
     private authModel: Model<AuthDocument>
-    private response: IResponse
 
     constructor(
         private readonly userService: UserService,
@@ -21,10 +20,7 @@ export class DataService {
     async alterUserAvatar(id: number, filename: string): Promise<IResponse> {
         return await this.authModel.findByIdAndUpdate(id, { avatar: `${this.config.get<string>('BASE_URL')}/avatar/${filename}` })
             .then(res => {
-                return this.response = {
-                    code: 20000,
-                    message: '上傳頭像成功',
-                }
+                return success('上傳頭像成功')
             })
     }
 
@@ -39,31 +35,21 @@ export class DataService {
                 res.forEach(user => {
                     users.push(user)
                 })
-                return this.response = {
-                    code: 20000,
-                    message: '獲取成功',
-                    data: {
-                        count: await this.authModel.count(),
-                        rows: users
-                    }
-                }
+                return success('獲取成功', {
+                    count: await this.authModel.count(),
+                    rows: users
+                })
             })
             .catch(err => {
                 // logger.warn(err)
-                return this.response = {
-                    code: 40000,
-                    message: err
-                }
+                return error(err)
             })
     }
 
     async alterData(table: string, id: number, obj: object): Promise<IResponse> {
         return this.authModel.findByIdAndUpdate(id, obj)
             .then(res => {
-                return this.response = {
-                    code: 20000,
-                    message: '修改成功'
-                }
+                return success('修改成功')
             })
     }
 }

@@ -1,10 +1,11 @@
-import { Logger, ValidationPipe } from '@nestjs/common'
+import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { DocumentBuilder, SwaggerCustomOptions, SwaggerModule } from '@nestjs/swagger'
 // import { Log4jsLogger } from '@nestx-log4js/core'
 import { AppModule } from './app.module'
+import ValidatePipe from './common/validate/validate.pipe'
 
 // const logger = new Logger("main.ts")
 
@@ -17,7 +18,12 @@ const bootstrap = async () => {
   const config: ConfigService = app.get(ConfigService)
   const port: number = config.get<number>('PORT')
 
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }))
+  app.useGlobalPipes(new ValidatePipe({ whitelist: true, transform: true }))
+
+  /**
+   * 設置api網址開頭
+   */
+  // app.setGlobalPrefix('api')
 
   /**
    * 配置 Swagger

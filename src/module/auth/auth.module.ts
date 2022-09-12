@@ -8,14 +8,24 @@ import { JwtStrategy } from './jwt.strategy'
 import { HashPasswordMiddleware } from 'src/common/middleware/hash-password.middleware'
 // import { MulterModule } from '@nestjs/platform-express'
 // import { diskStorage } from 'multer'
-// import { MulterHelper } from 'src/common/helper/multer.helper'
+// import { MulterHelper } from 'src/common/helper'
 
 @Module({
   imports: [
     UserModule,
-    JwtModule.register({
-      secret: JWT_CONSTANT.secret
-    }),
+    // JwtModule.register({
+    //   secret: JWT_CONSTANT.secret
+    // }),
+    JwtModule.registerAsync({
+      useFactory: () => {
+        return {
+          // 設置加密的secret
+          secret: JWT_CONSTANT.secret,
+          // 過期時間
+          // signOptions: { expiresIn: '300d' }
+        }
+      }
+    })
     // MulterModule.registerAsync({
     //   useFactory: () => ({
     //     storage: diskStorage({

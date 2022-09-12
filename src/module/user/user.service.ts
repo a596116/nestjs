@@ -5,14 +5,13 @@ import { IResponse } from 'src/common/interface/response.interface'
 import { InjectModel } from '@nestjs/mongoose'
 import { Auth, AuthDocument } from '../db/schema/auth.schema'
 import { Model } from 'mongoose'
+import { error, success } from 'src/common/helper'
 
 // const logger = new Logger('user.service')
 @Injectable()
 export class UserService {
     @InjectModel(Auth.name)
     private authModel: Model<AuthDocument>
-
-    private response: IResponse
     // private redis: Redis
     constructor(
         // private readonly redisService: RedisService
@@ -38,20 +37,14 @@ export class UserService {
             .then(res => {
                 if (res) {
                     Object.assign(res, { password: '' })
-                    return this.response = {
-                        code: 20000,
-                        data: res
-                    }
+                    return success('獲取用戶成功', res)
                 } else {
-                    throw this.response = {
-                        code: 40000,
-                        message: '獲取用戶失敗'
-                    }
+                    throw error('獲取用戶失敗')
                 }
             })
             .catch(res => {
                 // logger.warn(res)
-                return this.response
+                return res
             })
     }
 

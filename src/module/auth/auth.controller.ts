@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Inject, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
+import { Body, Controller, Get, Inject, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { IResponse } from 'src/common/interface/response.interface'
-import { alterUserInfoDto, alterUserPasswordDto, CreateUserDto, LoginUserDto } from '../../common/dto/user.dto'
+import { alterUserInfoDto, alterUserPasswordDto, CreateUserDto, LoginUserDto } from './dto/user.dto'
 import { AuthService } from './auth.service'
+import { AuthGuard } from '@nestjs/passport'
 
 @ApiTags('用戶驗證模塊')
 @Controller('auth')
@@ -14,7 +15,7 @@ export class AuthController {
     @ApiOperation({
         summary: "用戶登入"
     })
-    async loginUser(@Body() user: LoginUserDto): Promise<IResponse> {
+    async loginUser(@Body() user: LoginUserDto) {
         return await this.authService.login(user)
     }
 
@@ -27,6 +28,7 @@ export class AuthController {
     }
 
     @Post('alter')
+    @UseGuards(AuthGuard('jwt'))
     @ApiOperation({
         summary: "用戶修改"
     })
@@ -35,6 +37,7 @@ export class AuthController {
     }
 
     @Post('alterPassword')
+    @UseGuards(AuthGuard('jwt'))
     @ApiOperation({
         summary: "用戶修改密碼"
     })
@@ -57,5 +60,4 @@ export class AuthController {
     async verify(@Body() captcha: { captcha: string, id: string }) {
         return await this.authService.verification(captcha.captcha, captcha.id)
     }
-
 }
