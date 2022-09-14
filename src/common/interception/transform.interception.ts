@@ -9,7 +9,7 @@ export class TransformInterceptor implements NestInterceptor {
         return next.handle().pipe(
             map((data) => {
                 data.data.rows.map(d => {
-                    d.created_At = d.createdAt.toLocaleString('en-GB')
+                    d.createdAt = d.createdAt.toLocaleString('en-GB')
                     return d
                 })
                 return data

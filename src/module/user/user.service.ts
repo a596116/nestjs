@@ -10,7 +10,7 @@ import { PrismaService } from '../prisma/prisma.service'
 export class UserService {
     // private redis: Redis
     constructor(
-        private prisma: PrismaService
+        private readonly prisma: PrismaService
         // private readonly redisService: RedisService
     ) {
         // this.redis = this.redisService.getClient('haodai')

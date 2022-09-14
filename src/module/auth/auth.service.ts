@@ -180,7 +180,7 @@ export class AuthService {
      * 驗證碼確認
      * @date 2022-08-27
      */
-    public async verification(captcha: string, id: string) {
-        this.captchas[id] == captcha.toLowerCase() ? success('驗證通過') : error('驗證碼錯誤')
+    public async verification(captcha: string, id: string): Promise<IResponse> {
+        return this.captchas[id] === captcha.toLowerCase() ? success('驗證通過') : error('驗證碼錯誤')
     }
 }

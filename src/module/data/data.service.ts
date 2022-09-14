@@ -40,19 +40,26 @@ export class DataService {
             take: this.appConfig.user_page_row,
         })
         const total = await this.prisma.user.count()
-        return success('獲取成功',
-            paginate({
-                data,
-                page,
-                row: this.appConfig.user_page_row,
-                total,
-            }))
+        return paginate({
+            data,
+            total,
+        })
     }
 
-    async alterData(table: string, id: number, obj: object) {
-        // return this.authModel.findByIdAndUpdate(id, obj)
-        //     .then(res => {
-        //         return success('修改成功')
-        //     })
+    /**
+     * 修改資料
+     * @date 2022-09-14
+     */
+    async alterData(table: string, id: string, obj: object) {
+        return this.prisma[table].update({
+            where: {
+                id: id
+            },
+            data: { ...obj }
+        }).then(() => {
+            return success('更新成功')
+        }).catch(() => {
+            return error('更新失敗')
+        })
     }
 }
