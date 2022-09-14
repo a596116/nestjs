@@ -1,12 +1,8 @@
-import { registerDecorator, ValidationArguments, ValidationOptions } from "class-validator"
-import { model } from "mongoose"
-import { AuthDocument } from "src/module/db/schema/auth.schema"
+import { PrismaClient } from '@prisma/client'
+import { registerDecorator, ValidationArguments, ValidationOptions } from 'class-validator'
 
-/**
- * 判斷重複字段
- * @date 2022-09-12
- */
-export function IsNotExistsRule(table: string, validationOptions?: ValidationOptions): PropertyDecorator {
+//表字段是否唯一
+export function IsNotExistsRule(table: string, validationOptions?: ValidationOptions) {
     return function (object: Record<string, any>, propertyName: string) {
         registerDecorator({
             name: 'IsNotExistsRule',
@@ -16,15 +12,15 @@ export function IsNotExistsRule(table: string, validationOptions?: ValidationOpt
             options: validationOptions,
             validator: {
                 async validate(value: string, args: ValidationArguments) {
-                    const PatternModel = model<AuthDocument>('user')
-                    const res = await PatternModel.findOne({
+                    const prisma = new PrismaClient()
+                    const res = await prisma[table].findFirst({
                         where: {
-                            [args.property]: value
-                        }
+                            [args.property]: value,
+                        },
                     })
                     return !Boolean(res)
-                }
-            }
+                },
+            },
         })
     }
 }

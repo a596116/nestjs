@@ -1,4 +1,5 @@
 import { MulterHelper } from "./multer.helper"
-import { success, error } from './response'
+import { paginate } from "./paginate.helper"
+import { success, error } from './response.helper'
 
-export { MulterHelper, success, error }
+export { MulterHelper, success, error, paginate }

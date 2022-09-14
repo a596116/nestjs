@@ -2,7 +2,7 @@ import { Body, Controller, Get, Inject, Param, ParseIntPipe, Post, Query, UseGua
 import { AuthGuard } from '@nestjs/passport'
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { IResponse } from 'src/common/interface/response.interface'
-import { findUserInfoDto } from '../auth/dto/user.dto'
+import { findUserInfoDto } from '../auth/dto/find.dto'
 import { UserService } from './user.service'
 
 @ApiTags('用戶模塊')

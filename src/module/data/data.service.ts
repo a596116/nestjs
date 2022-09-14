@@ -1,55 +1,58 @@
-import { Injectable, UseInterceptors } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
-import { InjectModel } from '@nestjs/mongoose'
-import { Model, ObjectId } from 'mongoose'
-import { error, success } from 'src/common/helper'
+import { Inject, Injectable } from '@nestjs/common'
+import { ConfigService, ConfigType } from '@nestjs/config'
+import { error, paginate, success } from 'src/common/helper'
 import { IResponse } from 'src/common/interface/response.interface'
-import { Auth, AuthDocument } from '../db/schema/auth.schema'
-import { UserService } from '../user/user.service'
+import { app } from 'src/config/app'
+import { PrismaService } from '../prisma/prisma.service'
 
 @Injectable()
 export class DataService {
-    @InjectModel(Auth.name)
-    private authModel: Model<AuthDocument>
-
     constructor(
-        private readonly userService: UserService,
-        private readonly config: ConfigService
+        @Inject(app.KEY) private appConfig: ConfigType<typeof app>,
+        private readonly config: ConfigService,
+        private readonly prisma: PrismaService
     ) { }
 
-    async alterUserAvatar(id: number, filename: string): Promise<IResponse> {
-        return await this.authModel.findByIdAndUpdate(id, { avatar: `${this.config.get<string>('BASE_URL')}/avatar/${filename}` })
-            .then(res => {
-                return success('上傳頭像成功')
-            })
+    /**
+     * 修改用戶頭像
+     * @date 2022-09-14
+     */
+    async alterUserAvatar(id: string, filename: string): Promise<IResponse> {
+        return await this.prisma.user.update({
+            where: { id: id },
+            data: {
+                avatar: `${this.config.get<string>('BASE_URL')}/avatar/${filename}`
+            }
+        }).then(() => {
+            return success('上傳頭像成功')
+        }).catch(err => {
+            throw error(err)
+        })
     }
 
     /**
      * 獲取所有用戶
-     * @date 2022-08-27
+     * @date 2022-09-14
      */
-    async getAllUser(page: number): Promise<IResponse> {
-        const users = []
-        return await this.authModel.find().skip(5 * (page - 1)).limit(5)
-            .then(async res => {
-                res.forEach(user => {
-                    users.push(user)
-                })
-                return success('獲取成功', {
-                    count: await this.authModel.count(),
-                    rows: users
-                })
-            })
-            .catch(err => {
-                // logger.warn(err)
-                return error(err)
-            })
+    async getAllUser(page: number) {
+        const data = await this.prisma.user.findMany({
+            skip: (page - 1) * this.appConfig.user_page_row,
+            take: this.appConfig.user_page_row,
+        })
+        const total = await this.prisma.user.count()
+        return success('獲取成功',
+            paginate({
+                data,
+                page,
+                row: this.appConfig.user_page_row,
+                total,
+            }))
     }
 
-    async alterData(table: string, id: number, obj: object): Promise<IResponse> {
-        return this.authModel.findByIdAndUpdate(id, obj)
-            .then(res => {
-                return success('修改成功')
-            })
+    async alterData(table: string, id: number, obj: object) {
+        // return this.authModel.findByIdAndUpdate(id, obj)
+        //     .then(res => {
+        //         return success('修改成功')
+        //     })
     }
 }

@@ -8,9 +8,9 @@ export const success = (message: string, data?: any): IResponse => {
     }
 }
 
-export const error = (message: string, code?: 40000) => {
+export const error = (message: string, code?: number) => {
     return {
-        code,
+        code: code || 40000,
         message
     }
 }

@@ -11,7 +11,6 @@ import ValidatePipe from './common/validate/validate.pipe'
 
 /**
  * @description 主方法
- * @date 25/08/2022
  */
 const bootstrap = async () => {
   const app: NestExpressApplication = await NestFactory.create(AppModule)
@@ -19,6 +18,7 @@ const bootstrap = async () => {
   const port: number = config.get<number>('PORT')
 
   app.useGlobalPipes(new ValidatePipe({ whitelist: true, transform: true }))
+
 
   /**
    * 設置api網址開頭
@@ -45,7 +45,6 @@ const bootstrap = async () => {
 
   /**
    * 跨域
-   * @date 2022-08-30
    */
   app.enableCors({
     origin: '*'

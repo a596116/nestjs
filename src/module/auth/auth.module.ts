@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt'
 import { JWT_CONSTANT } from './jwt.constant'
 import { JwtStrategy } from './jwt.strategy'
 import { HashPasswordMiddleware } from 'src/common/middleware/hash-password.middleware'
+import { PrismaModule } from '../prisma/prisma.module'
 // import { MulterModule } from '@nestjs/platform-express'
 // import { diskStorage } from 'multer'
 // import { MulterHelper } from 'src/common/helper'
@@ -13,6 +14,7 @@ import { HashPasswordMiddleware } from 'src/common/middleware/hash-password.midd
 @Module({
   imports: [
     UserModule,
+    PrismaModule,
     // JwtModule.register({
     //   secret: JWT_CONSTANT.secret
     // }),
@@ -37,7 +39,7 @@ import { HashPasswordMiddleware } from 'src/common/middleware/hash-password.midd
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
-  exports: [AuthService]
+  exports: [AuthService],
 })
 export class AuthModule implements NestModule {
   /**

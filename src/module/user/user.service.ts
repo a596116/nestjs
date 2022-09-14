@@ -2,18 +2,15 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { IResponse } from 'src/common/interface/response.interface'
 // import Redis from 'ioredis'
-import { InjectModel } from '@nestjs/mongoose'
-import { Auth, AuthDocument } from '../db/schema/auth.schema'
-import { Model } from 'mongoose'
 import { error, success } from 'src/common/helper'
+import { PrismaService } from '../prisma/prisma.service'
 
 // const logger = new Logger('user.service')
 @Injectable()
 export class UserService {
-    @InjectModel(Auth.name)
-    private authModel: Model<AuthDocument>
     // private redis: Redis
     constructor(
+        private prisma: PrismaService
         // private readonly redisService: RedisService
     ) {
         // this.redis = this.redisService.getClient('haodai')
@@ -24,8 +21,7 @@ export class UserService {
      * @date 2022-08-27
      */
     async findOneByPhone(phone: string): Promise<any> {
-        return await this.authModel.findOne({ phone })
-            .then(res => res)
+        return await this.prisma.user.findUnique({ where: { phone: phone } })
     }
 
     /**

@@ -6,14 +6,13 @@ import { ApiModule } from './module/api.module'
 // import { RedisModule } from '@liaoliaots/nestjs-redis'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { join } from 'path'
+import configs from './config/index'
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`)
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath,
-      isGlobal: true
-    }),
+    ConfigModule.forRoot({ envFilePath, isGlobal: true }),
+    ConfigModule.forRoot({ load: configs, isGlobal: true }),
     // Log4jsModule.forRoot(),
     /**
      * Redis配置

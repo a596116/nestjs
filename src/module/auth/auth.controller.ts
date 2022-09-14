@@ -1,9 +1,11 @@
 import { Body, Controller, Get, Inject, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { IResponse } from 'src/common/interface/response.interface'
-import { alterUserInfoDto, alterUserPasswordDto, CreateUserDto, LoginUserDto } from './dto/user.dto'
+import { alterUserInfoDto, alterUserPasswordDto } from './dto/alter.dto'
 import { AuthService } from './auth.service'
 import { AuthGuard } from '@nestjs/passport'
+import { RegistUserDto } from './dto/register.dto'
+import { LoginUserDto } from './dto/login.dto'
 
 @ApiTags('用戶驗證模塊')
 @Controller('auth')
@@ -23,7 +25,7 @@ export class AuthController {
     @ApiOperation({
         summary: "用戶註冊"
     })
-    public registUser(@Body() user: CreateUserDto): Promise<IResponse> {
+    public registUser(@Body() user: RegistUserDto): Promise<IResponse> {
         return this.authService.regist(user)
     }
 

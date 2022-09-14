@@ -1,33 +1,30 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { IResponse } from 'src/common/interface/response.interface'
 import { encript } from 'src/utils/Encription'
-import { alterUserInfoDto, alterUserPasswordDto, CreateUserDto, LoginUserDto } from './dto/user.dto'
+import { alterUserInfoDto, alterUserPasswordDto } from './dto/alter.dto'
 import { UserService } from '../user/user.service'
 import { JwtService } from '@nestjs/jwt'
-import { InjectModel } from '@nestjs/mongoose'
-import { Auth, AuthDocument } from '../db/schema/auth.schema'
-import { Model } from 'mongoose'
 import { error, success } from 'src/common/helper'
+import { PrismaService } from 'src/module/prisma/prisma.service'
+import { RegistUserDto } from './dto/register.dto'
+import { LoginUserDto } from './dto/login.dto'
 
 const svgCaptcha = require('svg-captcha')
 // const logger = new Logger('auth.service')
 
 @Injectable()
 export class AuthService {
-    @InjectModel(Auth.name)
-    private authModel: Model<AuthDocument>
-
     private pointer: number = 0
     private captchas = {}
-
     constructor(
         private readonly userService: UserService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
+        private prisma: PrismaService
     ) { }
 
     /**
      * 用戶登入方法
-     * @date 2022-08-26
+     * @date 2022-09-13
      */
     async login(user: LoginUserDto): Promise<IResponse> {
         return await this.validateUser(user)
@@ -51,37 +48,25 @@ export class AuthService {
 
     /**
      * 用戶註冊方法
-     * @date 2022-08-26
+     * @date 2022-09-13
      */
-    async regist(user: CreateUserDto): Promise<IResponse> {
-        return this.authModel.find({ phone: user.phone })
-            .then(res => {
-                if (res.length) {
-                    throw error("用戶帳號已註冊")
-                }
+    async regist(user: RegistUserDto): Promise<IResponse> {
+        try {
+            await this.prisma.user.create({
+                data: user
             })
-            .then(async () => {
-                try {
-                    const createUser = new this.authModel({ ...CreateUserDto })
-                    Object.assign(createUser, user)
-                    createUser.save()
-                    return success("用戶註冊成功")
-                } catch (error) {
-                    throw error('用戶註冊失敗，錯誤詳情：' + error)
-                }
-            })
-            .catch(err => {
-                // logger.log(`${user.name}:${err.message}`)
-                return err
-            })
+            return success("用戶註冊成功")
+        } catch (err) {
+            return error('用戶註冊失敗，錯誤詳情：' + err)
+        }
     }
 
     /**
-     * 用戶修改方法(根據phone)
-     * @date 2022-08-26
+     * 用戶修改方法(根據id)
+     * @date 2022-09-14
      */
     async alter(user: alterUserInfoDto): Promise<IResponse> {
-        return this.authModel.findOne({ where: { _id: user._id } })
+        return this.prisma.user.findUnique({ where: { id: user.id } })
             .then(async res => {
                 if (res) {
                     return await this.validateUser(Object.assign(res, { password: user.password }))
@@ -89,9 +74,18 @@ export class AuthService {
                             if (res.code !== 20000) {
                                 throw res
                             }
-                            this.authModel.findByIdAndUpdate(user._id, { password: encript(user.password, user.name), name: user.name, phone: user.phone })
-                                .exec()
-                            return success('用戶資訊修改成功')
+                            return await this.prisma.user.update({
+                                where: { id: user.id },
+                                data: {
+                                    name: user.name,
+                                    phone: user.phone,
+                                    password: encript(user.password, user.name)
+                                }
+                            }).then(() => {
+                                return success('用戶資訊修改成功')
+                            }).catch(err => {
+                                throw error(err)
+                            })
                         })
                 } else {
                     throw error('無此用戶')
@@ -112,9 +106,16 @@ export class AuthService {
                 if (res.code !== 20000) {
                     throw res
                 }
-                this.authModel.findByIdAndUpdate(res.data.userid, { password: encript(user.newPassword, res.data.userName) })
-                    .exec()
-                return success('密碼修改成功')
+                return await this.prisma.user.update({
+                    where: { id: res.data.userid },
+                    data: {
+                        password: encript(user.newPassword, res.data.userName)
+                    }
+                }).then(() => {
+                    return success('密碼修改成功')
+                }).catch(err => {
+                    throw error(err)
+                })
             })
             .catch(err => {
                 // logger.error(err)
@@ -122,11 +123,13 @@ export class AuthService {
             })
     }
 
+
+    //************************************************************** */
     /**
    * 用戶登入驗證
    * @date 2022-08-26
    */
-    private async validateUser(user: Auth | alterUserPasswordDto | alterUserInfoDto | LoginUserDto) {
+    private async validateUser(user: alterUserPasswordDto | alterUserInfoDto | LoginUserDto) {
         const phone: string = user.phone
         const password: string = user.password
         return await this.userService.findOneByPhone(phone)
