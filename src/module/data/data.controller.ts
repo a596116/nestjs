@@ -13,13 +13,13 @@ export class DataController {
     @Inject(DataService)
     private readonly dataService: DataService
 
-    @Get('user/:page')
+    @Post('user/:page')
     @ApiOperation({
         summary: "查尋所有用戶"
     })
     @UseInterceptors(TransformInterceptor) //格式化日期
-    async findAll(@Param("page") page: number) {
-        return await this.dataService.getAllUser(page)
+    async findAll(@Param("page") page: number, @Body() query: object) {
+        return await this.dataService.getAllUser(page, query)
     }
 
     @Put(':table')

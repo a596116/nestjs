@@ -32,14 +32,33 @@ export class DataService {
 
     /**
      * 獲取所有用戶
-     * @date 2022-09-14
+     * @date 2022-09-15
      */
-    async getAllUser(page: number) {
+    async getAllUser(page: number, query?: any) {
+        let q = []
+        Object.keys(query).map(item => {
+            let i = {}
+            if (item === 'permissions') {
+                i[item] = { hasSome: query[item] }
+            }
+            else if (item === 'order') {
+                return
+            } else {
+                i[item] = { contains: query[item] }
+            }
+            q.push(i)
+        })
+        const order = query?.order?.replace('ending', '') || 'desc'
+        const search = q.length ? { AND: q } : {}
         const data = await this.prisma.user.findMany({
+            where: search,
             skip: (page - 1) * this.appConfig.user_page_row,
             take: this.appConfig.user_page_row,
+            orderBy: [{
+                createdAt: order
+            }]
         })
-        const total = await this.prisma.user.count()
+        const total = data.length
         return paginate({
             data,
             total,
