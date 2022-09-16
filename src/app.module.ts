@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { getEnvPath } from './common/helper/env.helper'
+import { getEnvPath } from './common/helper'
 import { ApiModule } from './module/api.module'
 // import { Log4jsModule } from '@nestx-log4js/core'
 // import { RedisModule } from '@liaoliaots/nestjs-redis'
@@ -8,7 +8,8 @@ import { ServeStaticModule } from '@nestjs/serve-static'
 import { join } from 'path'
 import configs from './config/index'
 
-const envFilePath: string = getEnvPath(`${__dirname}/common/envs`)
+// const envFilePath: string = getEnvPath(`${__dirname}/common/envs`)
+const envFilePath: string = getEnvPath(`../`)
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath, isGlobal: true }),

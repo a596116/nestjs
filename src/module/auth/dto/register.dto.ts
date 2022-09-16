@@ -21,16 +21,16 @@ export class RegistUserDto {
 
     @IsNotEmpty({ message: '頭像不能為空' })
     @ApiProperty({ required: true, description: 'avatar', default: '0' })
-    public avatar?: string
+    public avatar: string
 
     @IsString({ message: '用戶狀態必須為字串' })
     @IsNotEmpty({ message: '用戶狀態不能為空' })
     @ApiProperty({ required: true, description: 'active', default: '1' })
-    public active?: string
+    public active: string
 
     @IsArray({ message: '用戶權限必須為陣列' })
     @IsNotEmpty({ message: '用戶權限不能為空' })
     @ApiProperty({ required: true, description: 'permissions', default: ['user', 'admin'] })
-    public permissions?: string[]
+    public permissions: string[]
 
 }
