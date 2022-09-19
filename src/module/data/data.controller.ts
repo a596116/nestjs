@@ -18,8 +18,17 @@ export class DataController {
         summary: "查尋所有用戶"
     })
     @UseInterceptors(TransformInterceptor) //格式化日期
-    async findAll(@Param("page") page: number, @Body() query: object) {
+    async findAllUser(@Param("page") page: number, @Body() query: object) {
         return await this.dataService.getAllUser(page, query)
+    }
+
+    @Post('blog/:page')
+    @ApiOperation({
+        summary: "查尋所有文章"
+    })
+    @UseInterceptors(TransformInterceptor) //格式化日期
+    async findAllBlog(@Param("page") page: number, @Body() query: object) {
+        return await this.dataService.getAllBlog(page, query)
     }
 
     @Put(':table')
@@ -36,7 +45,7 @@ export class DataController {
     // })
     // @UseInterceptors(FileInterceptor('avatar'))
     // async upload(@UploadedFile() file: Express.Multer.File, @Param() { id }) {
-    //     return await this.dataService.alterUserAvatar(id, file.filename)
+    //     return await this.dataService.alterUserAvatar(id, file.originalname)
     //         .then(res => {
     //             return res.code === 20000 ? res : false
     //         })

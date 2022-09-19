@@ -4,5 +4,5 @@ export const app = registerAs('app', () => ({
   token_access: process.env.TOKEN_SECRET || '',
 
   //每頁顯示數量
-  user_page_row: 10,
+  user_page_row: 5,
 }))

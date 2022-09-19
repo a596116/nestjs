@@ -57,6 +57,7 @@ export class AuthService {
             })
             return success("用戶註冊成功")
         } catch (err) {
+            console.log(err)
             return error('用戶註冊失敗，錯誤詳情：' + err)
         }
     }

@@ -18,7 +18,7 @@ export class MulterHelper {
     ): void {
         const { originalname } = file
         const timestamp = new Date().toISOString()
-        callback(null, `${timestamp}-${originalname}`)
+        callback(null, `${originalname}`)
     }
 
 }
