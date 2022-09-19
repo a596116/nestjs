@@ -33,7 +33,7 @@ export class UserService {
             .then(res => {
                 if (res) {
                     Object.assign(res, { password: '' })
-                    return success('獲取用戶成功', res)
+                    return success(null, res)
                 } else {
                     throw error('獲取用戶失敗')
                 }

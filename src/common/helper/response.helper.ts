@@ -1,6 +1,6 @@
 import { IResponse } from "../interface/response.interface"
 
-export const success = (message: string, data?: any): IResponse => {
+export const success = (message?: string, data?: any): IResponse => {
     return {
         code: 20000,
         message,

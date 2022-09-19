@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Inject, Param, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 // import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
@@ -36,7 +36,7 @@ export class DataController {
         summary: "修改資料"
     })
     async updateData(@Param("table") table: string, @Query() id: any, @Body() obj: object) {
-        return this.dataService.alterData(table, id.id, obj)
+        return await this.dataService.alterData(table, id.id, obj)
     }
 
     // @Post('upload/avatar/:id')
@@ -50,4 +50,20 @@ export class DataController {
     //             return res.code === 20000 ? res : false
     //         })
     // }
+
+    @Post('create/:table')
+    @ApiOperation({
+        summary: "新增資料"
+    })
+    async createData(@Param('table') table: string, @Body() obj: object) {
+        return await this.dataService.createData(table, obj)
+    }
+
+    @Delete(':table')
+    @ApiOperation({
+        summary: "刪除資料"
+    })
+    async deleteData(@Param('table') table: string, @Query() id: any) {
+        return await this.dataService.deleteData(table, id.id)
+    }
 }

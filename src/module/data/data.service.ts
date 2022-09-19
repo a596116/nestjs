@@ -38,7 +38,7 @@ export class DataService {
         let q = []
         Object.keys(query).map(item => {
             let i = {}
-            if (item === 'permissions') {
+            if (item === 'category') {
                 i[item] = { hasSome: query[item] }
             }
             else if (item === 'order') {
@@ -58,7 +58,9 @@ export class DataService {
                 createdAt: order
             }]
         })
-        const total = data.length
+        const total = await this.prisma.blog.count({
+            where: search,
+        })
         return paginate({
             data,
             total,
@@ -116,5 +118,24 @@ export class DataService {
         }).catch(() => {
             return error('更新失敗')
         })
+    }
+
+    async createData(table: string, obj: object) {
+        return this.prisma[table].create({
+            data: obj
+        }).then(() => {
+            return success('新增成功')
+        }).catch(() => {
+            return error('新增失敗')
+        })
+    }
+
+    async deleteData(table: string, id: string) {
+        return this.prisma[table].delete({ where: { id } })
+            .then(() => {
+                return success('刪除成功')
+            }).catch(() => {
+                return error('刪除失敗')
+            })
     }
 }
