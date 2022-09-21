@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '../../../prisma/client'
 import { registerDecorator, ValidationArguments, ValidationOptions } from 'class-validator'
 
 //表字段是否唯一

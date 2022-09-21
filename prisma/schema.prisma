@@ -1,11 +1,11 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/.prisma/client"
+  output   = "./client"
 }
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = "mongodb+srv://vercel-admin-user:Gsf4KRIwZrFLUwBp@cluster0.wltmkac.mongodb.net/nestjs"
 }
 
 model User {
@@ -15,7 +15,7 @@ model User {
   name        String
   password    String
   permissions String[]
-  phone       String @unique
+  phone       String   @unique 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

@@ -20,7 +20,7 @@ export class UserService {
      * 根據帳號獲取用戶
      * @date 2022-08-27
      */
-    async findOneByPhone(phone: string): Promise<any> {
+    async findOneByPhone(phone: string) {
         return await this.prisma.user.findUnique({ where: { phone: phone } })
     }
 

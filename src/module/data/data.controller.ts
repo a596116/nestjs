@@ -66,4 +66,5 @@ export class DataController {
     async deleteData(@Param('table') table: string, @Query() id: any) {
         return await this.dataService.deleteData(table, id.id)
     }
+
 }
