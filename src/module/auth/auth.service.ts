@@ -79,6 +79,7 @@ export class AuthService {
                                 where: { id: user.id },
                                 data: {
                                     name: user.name,
+                                    avatar: user.avatar,
                                     phone: user.phone,
                                     password: encript(user.password, user.name)
                                 }

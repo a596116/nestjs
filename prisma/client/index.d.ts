@@ -37,7 +37,7 @@ export type Blog = {
   title: string
   content: string
   category: string[]
-  image: string
+  image: string | null
   createdAt: Date
   updatedAt: Date
 }
@@ -1927,7 +1927,7 @@ export namespace Prisma {
     title: string
     content: string
     category: string[]
-    image: string
+    image: string | null
     createdAt: Date
     updatedAt: Date
     _count: BlogCountAggregateOutputType | null
@@ -2848,7 +2848,7 @@ export namespace Prisma {
     title?: StringFilter | string
     content?: StringFilter | string
     category?: StringNullableListFilter
-    image?: StringFilter | string
+    image?: StringNullableFilter | string | null
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
   }
@@ -2888,7 +2888,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter | string
     content?: StringWithAggregatesFilter | string
     category?: StringNullableListFilter
-    image?: StringWithAggregatesFilter | string
+    image?: StringNullableWithAggregatesFilter | string | null
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
@@ -2978,7 +2978,7 @@ export namespace Prisma {
     title: string
     content: string
     category?: BlogCreatecategoryInput | Enumerable<string>
-    image: string
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2988,7 +2988,7 @@ export namespace Prisma {
     title: string
     content: string
     category?: BlogCreatecategoryInput | Enumerable<string>
-    image: string
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2997,7 +2997,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     category?: BlogUpdatecategoryInput | Enumerable<string>
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3006,7 +3006,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     category?: BlogUpdatecategoryInput | Enumerable<string>
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3016,7 +3016,7 @@ export namespace Prisma {
     title: string
     content: string
     category?: BlogCreatecategoryInput | Enumerable<string>
-    image: string
+    image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -3025,7 +3025,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     category?: BlogUpdatecategoryInput | Enumerable<string>
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3034,7 +3034,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     category?: BlogUpdatecategoryInput | Enumerable<string>
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3139,6 +3139,22 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
+  export type StringNullableFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringNullableFilter | string | null
+    isSet?: boolean
+  }
+
   export type BlogCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -3167,6 +3183,25 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type StringNullableWithAggregatesFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedStringNullableFilter
+    _max?: NestedStringNullableFilter
+    isSet?: boolean
+  }
+
   export type UserCreatepermissionsInput = {
     set: Enumerable<string>
   }
@@ -3191,6 +3226,11 @@ export namespace Prisma {
   export type BlogUpdatecategoryInput = {
     set?: Enumerable<string>
     push?: string | Enumerable<string>
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+    unset?: boolean
   }
 
   export type NestedStringFilter = {
@@ -3258,6 +3298,51 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedDateTimeFilter
     _max?: NestedDateTimeFilter
+  }
+
+  export type NestedStringNullableFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringNullableFilter | string | null
+    isSet?: boolean
+  }
+
+  export type NestedStringNullableWithAggregatesFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringNullableWithAggregatesFilter | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedStringNullableFilter
+    _max?: NestedStringNullableFilter
+    isSet?: boolean
+  }
+
+  export type NestedIntNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | null
+    notIn?: Enumerable<number> | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntNullableFilter | number | null
+    isSet?: boolean
   }
 
 

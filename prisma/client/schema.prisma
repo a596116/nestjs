@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = "mongodb+srv://vercel-admin-user:Gsf4KRIwZrFLUwBp@cluster0.wltmkac.mongodb.net/nestjs"
 }
 
 model User {
@@ -25,7 +25,7 @@ model Blog {
   title       String
   content     String
   category    String[]
-  image       String
+  image       String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

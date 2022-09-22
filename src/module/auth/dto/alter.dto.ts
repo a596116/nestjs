@@ -20,6 +20,13 @@ export class alterUserInfoDto {
     @IsNotEmpty({ message: '密碼不能為空' })
     @ApiProperty({ required: true, description: 'password', default: '123456' })
     public password: string
+
+    @IsString({ message: '頭像必須為字串' })
+    @IsNotEmpty({ message: '頭像不能為空' })
+    @ApiProperty({
+        required: true, description: 'avatar', default: 'https://upload.cc/i1/2022/09/21/tFJkfi.png'
+    })
+    public avatar: string
 }
 
 

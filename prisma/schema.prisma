@@ -25,7 +25,7 @@ model Blog {
   title       String
   content     String
   category    String[]
-  image       String
+  image       String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
