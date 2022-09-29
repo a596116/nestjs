@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import * as superagent from 'superagent'
 import cheerio from "cheerio"
-import { fashionJSON } from 'src/module/linebot/json/Fashion/fashion'
+import { fashionJSON } from 'src/module/linebot/line-handler/postback/json/Fashion/fashion'
 
 @Injectable()
 export class FashionPostBack {
@@ -13,6 +13,12 @@ export class FashionPostBack {
             }
             case '球鞋': {
                 return this.getHtml('https://hypebeast.com/zh/footwear')
+            }
+            default: {
+                return {
+                    type: 'text',
+                    text: '該功能目前無法使用'
+                }
             }
         }
     }

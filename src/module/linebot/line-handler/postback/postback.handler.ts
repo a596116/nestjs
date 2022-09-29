@@ -29,7 +29,20 @@ export class PostbackHandler {
     Object.keys(this.postbackTypes).forEach((k: string) => {
       data.match(new RegExp('^' + k, 'ig')) ? type = k : null
     })
-    const postback = await this.postbackTypes[type].handleByPostBackType(event)
-    return this.configService.createLinebotClient().replyMessage(replyToken, postback)
+    const postback = await this.postbackTypes[type]?.handleByPostBackType(event) || null
+    if (postback) {
+      return await this.configService.createLinebotClient().replyMessage(replyToken, postback)
+        .catch(err => {
+          return this.configService.createLinebotClient().replyMessage(replyToken, {
+            type: 'text',
+            text: '操作錯誤！'
+          })
+        })
+    } else {
+      return this.configService.createLinebotClient().replyMessage(replyToken, {
+        type: 'text',
+        text: '該功能暫時無法使用！'
+      })
+    }
   }
 }

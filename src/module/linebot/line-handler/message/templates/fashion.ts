@@ -9,8 +9,8 @@ export const fashionTemplate: TemplateMessage = {
         title: '時尚',
         text: '您要查詢的是？',
         actions: [
-            { label: 'hypebeast時裝', type: 'postback', data: 'fashion時裝', text: '查詢hypebeast時裝...' },
-            { label: 'hypebeast球鞋', type: 'postback', data: 'fashion球鞋', text: '查詢hypebeast球鞋...' },
+            { label: 'hypebeast時裝', type: 'postback', data: 'fashion時裝' },
+            { label: 'hypebeast球鞋', type: 'postback', data: 'fashion球鞋' },
             // { label: 'Cool球鞋', type: 'postback', data: 'fashionCool球鞋', text: '查詢Cool球鞋' }
         ],
     },

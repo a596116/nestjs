@@ -9,9 +9,9 @@ export const technologyTemplate: TemplateMessage = {
         title: '科技資訊',
         text: '您要查詢的是？',
         actions: [
-            { label: '癮科技', type: 'postback', data: 'technology癮科技', text: '查詢癮科技...' },
-            { label: 'eprice', type: 'postback', data: 'technology資訊', text: '查詢eprice...' },
-            { label: '瘋先生', type: 'postback', data: 'technology瘋先生', text: '查詢瘋先生...' }
+            { label: '癮科技', type: 'postback', data: 'technology癮科技' },
+            { label: 'eprice', type: 'postback', data: 'technology資訊' },
+            { label: '瘋先生', type: 'postback', data: 'technology瘋先生' }
         ],
     },
 }

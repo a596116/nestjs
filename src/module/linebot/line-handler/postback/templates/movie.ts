@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import * as superagent from 'superagent'
 import cheerio from "cheerio"
-import { movieJSON } from 'src/module/linebot/json/Movie/movie'
+import { movieJSON } from 'src/module/linebot/line-handler/postback/json/Movie/movie'
 
 @Injectable()
 export class MoviePostBack {
