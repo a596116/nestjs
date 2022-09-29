@@ -10,6 +10,8 @@ import { technologyTemplate } from '../templates/technology'
 import { menuTemplate } from '../templates/menu'
 import { otherTemplate } from '../templates/other'
 import { githubTemplate } from '../templates/github'
+import { settingAdd, settingDel, settingTemplate } from '../templates/setting'
+import { PrismaService } from 'src/module/prisma/prisma.service'
 
 @Injectable()
 export class TextHandler {
@@ -17,7 +19,8 @@ export class TextHandler {
 
   constructor(
     private readonly contactAdminContext: ContactAdminContext,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private prisma: PrismaService
   ) {
     this.messageContext = {
       contactAdmin: this.contactAdminContext
@@ -26,38 +29,52 @@ export class TextHandler {
 
   async handleByMessageType(messageEvent: MessageEventPayload): Promise<any> {
     const { message: { text } } = messageEvent
-
     return this.messageContext[MappingContext.detector[text]]?.handleByMessageContext(messageEvent) ?? this.replyDefaultMessage(messageEvent)
   }
 
   private async replyDefaultMessage(messageEvent: MessageEventPayload): Promise<MessageAPIResponseBase> {
-    const { message: { text }, replyToken, type } = messageEvent
+    const { message: { text }, replyToken, type, source: { userId } } = messageEvent
+    const user = await this.prisma.lineUser.findFirst({ where: { id: userId } })
     if (type === 'message') {
-      switch (text.replace(/^\s*|\s*$/g, "")) {
-        case 'Fashion': {
-          return this.configService.createLinebotClient().replyMessage(replyToken, fashionTemplate)
+      if (user.callback && user.callback.match(/^(setting)/ig)[0] === 'setting') {
+        switch (user.callback) {
+          case 'setting新增': {
+            return this.configService.createLinebotClient().replyMessage(replyToken, await settingAdd(userId, text))
+          }
+          case 'setting刪除': {
+            return this.configService.createLinebotClient().replyMessage(replyToken, await settingDel(userId, text))
+          }
         }
-        case 'Movie': {
-          return this.configService.createLinebotClient().replyMessage(replyToken, movieTemplate)
-        }
-        case 'Technology': {
-          return this.configService.createLinebotClient().replyMessage(replyToken, technologyTemplate)
-        }
-        case 'Menus': {
-          return this.configService.createLinebotClient().replyMessage(replyToken, menuTemplate)
-        }
-        case 'Github': {
-          return this.configService.createLinebotClient().replyMessage(replyToken, githubTemplate)
-        }
-        case '?':
-        case decodeURI('%EF%BC%9F'):
-          return this.configService.createLinebotClient().replyMessage(replyToken, otherTemplate)
+      } else {
+        switch (text.replace(/^\s*|\s*$/g, "")) {
+          case 'Fashion': {
+            return this.configService.createLinebotClient().replyMessage(replyToken, fashionTemplate)
+          }
+          case 'Movie': {
+            return this.configService.createLinebotClient().replyMessage(replyToken, movieTemplate)
+          }
+          case 'Technology': {
+            return this.configService.createLinebotClient().replyMessage(replyToken, technologyTemplate)
+          }
+          case 'Menus': {
+            return this.configService.createLinebotClient().replyMessage(replyToken, menuTemplate)
+          }
+          case 'Github': {
+            return this.configService.createLinebotClient().replyMessage(replyToken, githubTemplate)
+          }
+          case 'Setting': {
+            return this.configService.createLinebotClient().replyMessage(replyToken, await settingTemplate(userId))
+          }
+          case '?':
+          case decodeURI('%EF%BC%9F'):
+            return this.configService.createLinebotClient().replyMessage(replyToken, otherTemplate)
 
-        default: {
-          return this.configService.createLinebotClient().replyMessage(replyToken, {
-            type: 'text',
-            text: '請嘗試其他功能！'
-          })
+          default: {
+            return this.configService.createLinebotClient().replyMessage(replyToken, {
+              type: 'text',
+              text: '請嘗試其他功能！'
+            })
+          }
         }
       }
     }

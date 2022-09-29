@@ -42,6 +42,20 @@ export type Blog = {
   updatedAt: Date
 }
 
+/**
+ * Model LineUser
+ * 
+ */
+export type LineUser = {
+  id: string
+  callback: string
+  category: string[]
+  url: string
+  type: string
+  createdAt: Date
+  updatedAt: Date
+}
+
 
 /**
  * ##  Prisma Client ʲˢ
@@ -172,6 +186,16 @@ export class PrismaClient<
     * ```
     */
   get blog(): Prisma.BlogDelegate<GlobalReject>;
+
+  /**
+   * `prisma.lineUser`: Exposes CRUD operations for the **LineUser** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LineUsers
+    * const lineUsers = await prisma.lineUser.findMany()
+    * ```
+    */
+  get lineUser(): Prisma.LineUserDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -646,7 +670,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Blog: 'Blog'
+    Blog: 'Blog',
+    LineUser: 'LineUser'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2723,6 +2748,954 @@ export namespace Prisma {
 
 
   /**
+   * Model LineUser
+   */
+
+
+  export type AggregateLineUser = {
+    _count: LineUserCountAggregateOutputType | null
+    _min: LineUserMinAggregateOutputType | null
+    _max: LineUserMaxAggregateOutputType | null
+  }
+
+  export type LineUserMinAggregateOutputType = {
+    id: string | null
+    callback: string | null
+    url: string | null
+    type: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LineUserMaxAggregateOutputType = {
+    id: string | null
+    callback: string | null
+    url: string | null
+    type: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LineUserCountAggregateOutputType = {
+    id: number
+    callback: number
+    category: number
+    url: number
+    type: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LineUserMinAggregateInputType = {
+    id?: true
+    callback?: true
+    url?: true
+    type?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LineUserMaxAggregateInputType = {
+    id?: true
+    callback?: true
+    url?: true
+    type?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LineUserCountAggregateInputType = {
+    id?: true
+    callback?: true
+    category?: true
+    url?: true
+    type?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LineUserAggregateArgs = {
+    /**
+     * Filter which LineUser to aggregate.
+     * 
+    **/
+    where?: LineUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LineUsers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<LineUserOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     * 
+    **/
+    cursor?: LineUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LineUsers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LineUsers.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LineUsers
+    **/
+    _count?: true | LineUserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LineUserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LineUserMaxAggregateInputType
+  }
+
+  export type GetLineUserAggregateType<T extends LineUserAggregateArgs> = {
+        [P in keyof T & keyof AggregateLineUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLineUser[P]>
+      : GetScalarType<T[P], AggregateLineUser[P]>
+  }
+
+
+
+
+  export type LineUserGroupByArgs = {
+    where?: LineUserWhereInput
+    orderBy?: Enumerable<LineUserOrderByWithAggregationInput>
+    by: Array<LineUserScalarFieldEnum>
+    having?: LineUserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LineUserCountAggregateInputType | true
+    _min?: LineUserMinAggregateInputType
+    _max?: LineUserMaxAggregateInputType
+  }
+
+
+  export type LineUserGroupByOutputType = {
+    id: string
+    callback: string
+    category: string[]
+    url: string
+    type: string
+    createdAt: Date
+    updatedAt: Date
+    _count: LineUserCountAggregateOutputType | null
+    _min: LineUserMinAggregateOutputType | null
+    _max: LineUserMaxAggregateOutputType | null
+  }
+
+  type GetLineUserGroupByPayload<T extends LineUserGroupByArgs> = PrismaPromise<
+    Array<
+      PickArray<LineUserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LineUserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LineUserGroupByOutputType[P]>
+            : GetScalarType<T[P], LineUserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LineUserSelect = {
+    id?: boolean
+    callback?: boolean
+    category?: boolean
+    url?: boolean
+    type?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LineUserGetPayload<
+    S extends boolean | null | undefined | LineUserArgs,
+    U = keyof S
+      > = S extends true
+        ? LineUser
+    : S extends undefined
+    ? never
+    : S extends LineUserArgs | LineUserFindManyArgs
+    ?'include' extends U
+    ? LineUser 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]:
+    P extends keyof LineUser ? LineUser[P] : never
+  } 
+    : LineUser
+  : LineUser
+
+
+  type LineUserCountArgs = Merge<
+    Omit<LineUserFindManyArgs, 'select' | 'include'> & {
+      select?: LineUserCountAggregateInputType | true
+    }
+  >
+
+  export interface LineUserDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+    /**
+     * Find zero or one LineUser that matches the filter.
+     * @param {LineUserFindUniqueArgs} args - Arguments to find a LineUser
+     * @example
+     * // Get one LineUser
+     * const lineUser = await prisma.lineUser.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends LineUserFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, LineUserFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'LineUser'> extends True ? CheckSelect<T, Prisma__LineUserClient<LineUser>, Prisma__LineUserClient<LineUserGetPayload<T>>> : CheckSelect<T, Prisma__LineUserClient<LineUser | null >, Prisma__LineUserClient<LineUserGetPayload<T> | null >>
+
+    /**
+     * Find the first LineUser that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineUserFindFirstArgs} args - Arguments to find a LineUser
+     * @example
+     * // Get one LineUser
+     * const lineUser = await prisma.lineUser.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends LineUserFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, LineUserFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'LineUser'> extends True ? CheckSelect<T, Prisma__LineUserClient<LineUser>, Prisma__LineUserClient<LineUserGetPayload<T>>> : CheckSelect<T, Prisma__LineUserClient<LineUser | null >, Prisma__LineUserClient<LineUserGetPayload<T> | null >>
+
+    /**
+     * Find zero or more LineUsers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineUserFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LineUsers
+     * const lineUsers = await prisma.lineUser.findMany()
+     * 
+     * // Get first 10 LineUsers
+     * const lineUsers = await prisma.lineUser.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lineUserWithIdOnly = await prisma.lineUser.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends LineUserFindManyArgs>(
+      args?: SelectSubset<T, LineUserFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<LineUser>>, PrismaPromise<Array<LineUserGetPayload<T>>>>
+
+    /**
+     * Create a LineUser.
+     * @param {LineUserCreateArgs} args - Arguments to create a LineUser.
+     * @example
+     * // Create one LineUser
+     * const LineUser = await prisma.lineUser.create({
+     *   data: {
+     *     // ... data to create a LineUser
+     *   }
+     * })
+     * 
+    **/
+    create<T extends LineUserCreateArgs>(
+      args: SelectSubset<T, LineUserCreateArgs>
+    ): CheckSelect<T, Prisma__LineUserClient<LineUser>, Prisma__LineUserClient<LineUserGetPayload<T>>>
+
+    /**
+     * Create many LineUsers.
+     *     @param {LineUserCreateManyArgs} args - Arguments to create many LineUsers.
+     *     @example
+     *     // Create many LineUsers
+     *     const lineUser = await prisma.lineUser.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends LineUserCreateManyArgs>(
+      args?: SelectSubset<T, LineUserCreateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a LineUser.
+     * @param {LineUserDeleteArgs} args - Arguments to delete one LineUser.
+     * @example
+     * // Delete one LineUser
+     * const LineUser = await prisma.lineUser.delete({
+     *   where: {
+     *     // ... filter to delete one LineUser
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends LineUserDeleteArgs>(
+      args: SelectSubset<T, LineUserDeleteArgs>
+    ): CheckSelect<T, Prisma__LineUserClient<LineUser>, Prisma__LineUserClient<LineUserGetPayload<T>>>
+
+    /**
+     * Update one LineUser.
+     * @param {LineUserUpdateArgs} args - Arguments to update one LineUser.
+     * @example
+     * // Update one LineUser
+     * const lineUser = await prisma.lineUser.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends LineUserUpdateArgs>(
+      args: SelectSubset<T, LineUserUpdateArgs>
+    ): CheckSelect<T, Prisma__LineUserClient<LineUser>, Prisma__LineUserClient<LineUserGetPayload<T>>>
+
+    /**
+     * Delete zero or more LineUsers.
+     * @param {LineUserDeleteManyArgs} args - Arguments to filter LineUsers to delete.
+     * @example
+     * // Delete a few LineUsers
+     * const { count } = await prisma.lineUser.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends LineUserDeleteManyArgs>(
+      args?: SelectSubset<T, LineUserDeleteManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LineUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineUserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LineUsers
+     * const lineUser = await prisma.lineUser.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends LineUserUpdateManyArgs>(
+      args: SelectSubset<T, LineUserUpdateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one LineUser.
+     * @param {LineUserUpsertArgs} args - Arguments to update or create a LineUser.
+     * @example
+     * // Update or create a LineUser
+     * const lineUser = await prisma.lineUser.upsert({
+     *   create: {
+     *     // ... data to create a LineUser
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LineUser we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends LineUserUpsertArgs>(
+      args: SelectSubset<T, LineUserUpsertArgs>
+    ): CheckSelect<T, Prisma__LineUserClient<LineUser>, Prisma__LineUserClient<LineUserGetPayload<T>>>
+
+    /**
+     * Find zero or more LineUsers that matches the filter.
+     * @param {LineUserFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const lineUser = await prisma.lineUser.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: LineUserFindRawArgs
+    ): PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a LineUser.
+     * @param {LineUserAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const lineUser = await prisma.lineUser.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: LineUserAggregateRawArgs
+    ): PrismaPromise<JsonObject>
+
+    /**
+     * Find one LineUser that matches the filter or throw
+     * `NotFoundError` if no matches were found.
+     * @param {LineUserFindUniqueOrThrowArgs} args - Arguments to find a LineUser
+     * @example
+     * // Get one LineUser
+     * const lineUser = await prisma.lineUser.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends LineUserFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, LineUserFindUniqueOrThrowArgs>
+    ): CheckSelect<T, Prisma__LineUserClient<LineUser>, Prisma__LineUserClient<LineUserGetPayload<T>>>
+
+    /**
+     * Find the first LineUser that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineUserFindFirstOrThrowArgs} args - Arguments to find a LineUser
+     * @example
+     * // Get one LineUser
+     * const lineUser = await prisma.lineUser.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends LineUserFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, LineUserFindFirstOrThrowArgs>
+    ): CheckSelect<T, Prisma__LineUserClient<LineUser>, Prisma__LineUserClient<LineUserGetPayload<T>>>
+
+    /**
+     * Count the number of LineUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineUserCountArgs} args - Arguments to filter LineUsers to count.
+     * @example
+     * // Count the number of LineUsers
+     * const count = await prisma.lineUser.count({
+     *   where: {
+     *     // ... the filter for the LineUsers we want to count
+     *   }
+     * })
+    **/
+    count<T extends LineUserCountArgs>(
+      args?: Subset<T, LineUserCountArgs>,
+    ): PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LineUserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LineUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LineUserAggregateArgs>(args: Subset<T, LineUserAggregateArgs>): PrismaPromise<GetLineUserAggregateType<T>>
+
+    /**
+     * Group by LineUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineUserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LineUserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LineUserGroupByArgs['orderBy'] }
+        : { orderBy?: LineUserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LineUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLineUserGroupByPayload<T> : PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LineUser.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__LineUserClient<T> implements PrismaPromise<T> {
+    [prisma]: true;
+    private readonly _dmmf;
+    private readonly _fetcher;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * LineUser base type for findUnique actions
+   */
+  export type LineUserFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the LineUser
+     * 
+    **/
+    select?: LineUserSelect | null
+    /**
+     * Filter, which LineUser to fetch.
+     * 
+    **/
+    where: LineUserWhereUniqueInput
+  }
+
+  /**
+   * LineUser: findUnique
+   */
+  export interface LineUserFindUniqueArgs extends LineUserFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * LineUser base type for findFirst actions
+   */
+  export type LineUserFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the LineUser
+     * 
+    **/
+    select?: LineUserSelect | null
+    /**
+     * Filter, which LineUser to fetch.
+     * 
+    **/
+    where?: LineUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LineUsers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<LineUserOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LineUsers.
+     * 
+    **/
+    cursor?: LineUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LineUsers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LineUsers.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LineUsers.
+     * 
+    **/
+    distinct?: Enumerable<LineUserScalarFieldEnum>
+  }
+
+  /**
+   * LineUser: findFirst
+   */
+  export interface LineUserFindFirstArgs extends LineUserFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * LineUser findMany
+   */
+  export type LineUserFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the LineUser
+     * 
+    **/
+    select?: LineUserSelect | null
+    /**
+     * Filter, which LineUsers to fetch.
+     * 
+    **/
+    where?: LineUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LineUsers to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<LineUserOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LineUsers.
+     * 
+    **/
+    cursor?: LineUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LineUsers from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LineUsers.
+     * 
+    **/
+    skip?: number
+    distinct?: Enumerable<LineUserScalarFieldEnum>
+  }
+
+
+  /**
+   * LineUser create
+   */
+  export type LineUserCreateArgs = {
+    /**
+     * Select specific fields to fetch from the LineUser
+     * 
+    **/
+    select?: LineUserSelect | null
+    /**
+     * The data needed to create a LineUser.
+     * 
+    **/
+    data: XOR<LineUserCreateInput, LineUserUncheckedCreateInput>
+  }
+
+
+  /**
+   * LineUser createMany
+   */
+  export type LineUserCreateManyArgs = {
+    /**
+     * The data used to create many LineUsers.
+     * 
+    **/
+    data: Enumerable<LineUserCreateManyInput>
+  }
+
+
+  /**
+   * LineUser update
+   */
+  export type LineUserUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the LineUser
+     * 
+    **/
+    select?: LineUserSelect | null
+    /**
+     * The data needed to update a LineUser.
+     * 
+    **/
+    data: XOR<LineUserUpdateInput, LineUserUncheckedUpdateInput>
+    /**
+     * Choose, which LineUser to update.
+     * 
+    **/
+    where: LineUserWhereUniqueInput
+  }
+
+
+  /**
+   * LineUser updateMany
+   */
+  export type LineUserUpdateManyArgs = {
+    /**
+     * The data used to update LineUsers.
+     * 
+    **/
+    data: XOR<LineUserUpdateManyMutationInput, LineUserUncheckedUpdateManyInput>
+    /**
+     * Filter which LineUsers to update
+     * 
+    **/
+    where?: LineUserWhereInput
+  }
+
+
+  /**
+   * LineUser upsert
+   */
+  export type LineUserUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the LineUser
+     * 
+    **/
+    select?: LineUserSelect | null
+    /**
+     * The filter to search for the LineUser to update in case it exists.
+     * 
+    **/
+    where: LineUserWhereUniqueInput
+    /**
+     * In case the LineUser found by the `where` argument doesn't exist, create a new LineUser with this data.
+     * 
+    **/
+    create: XOR<LineUserCreateInput, LineUserUncheckedCreateInput>
+    /**
+     * In case the LineUser was found with the provided `where` argument, update it with this data.
+     * 
+    **/
+    update: XOR<LineUserUpdateInput, LineUserUncheckedUpdateInput>
+  }
+
+
+  /**
+   * LineUser delete
+   */
+  export type LineUserDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the LineUser
+     * 
+    **/
+    select?: LineUserSelect | null
+    /**
+     * Filter which LineUser to delete.
+     * 
+    **/
+    where: LineUserWhereUniqueInput
+  }
+
+
+  /**
+   * LineUser deleteMany
+   */
+  export type LineUserDeleteManyArgs = {
+    /**
+     * Filter which LineUsers to delete
+     * 
+    **/
+    where?: LineUserWhereInput
+  }
+
+
+  /**
+   * LineUser findRaw
+   */
+  export type LineUserFindRawArgs = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     * 
+    **/
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     * 
+    **/
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * LineUser aggregateRaw
+   */
+  export type LineUserAggregateRawArgs = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     * 
+    **/
+    pipeline?: Array<InputJsonValue>
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     * 
+    **/
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * LineUser: findUniqueOrThrow
+   */
+  export type LineUserFindUniqueOrThrowArgs = LineUserFindUniqueArgsBase
+      
+
+  /**
+   * LineUser: findFirstOrThrow
+   */
+  export type LineUserFindFirstOrThrowArgs = LineUserFindFirstArgsBase
+      
+
+  /**
+   * LineUser without action
+   */
+  export type LineUserArgs = {
+    /**
+     * Select specific fields to fetch from the LineUser
+     * 
+    **/
+    select?: LineUserSelect | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -2740,6 +3713,19 @@ export namespace Prisma {
   };
 
   export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
+
+
+  export const LineUserScalarFieldEnum: {
+    id: 'id',
+    callback: 'callback',
+    category: 'category',
+    url: 'url',
+    type: 'type',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LineUserScalarFieldEnum = (typeof LineUserScalarFieldEnum)[keyof typeof LineUserScalarFieldEnum]
 
 
   export const QueryMode: {
@@ -2893,6 +3879,59 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
 
+  export type LineUserWhereInput = {
+    AND?: Enumerable<LineUserWhereInput>
+    OR?: Enumerable<LineUserWhereInput>
+    NOT?: Enumerable<LineUserWhereInput>
+    id?: StringFilter | string
+    callback?: StringFilter | string
+    category?: StringNullableListFilter
+    url?: StringFilter | string
+    type?: StringFilter | string
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+  }
+
+  export type LineUserOrderByWithRelationInput = {
+    id?: SortOrder
+    callback?: SortOrder
+    category?: SortOrder
+    url?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LineUserWhereUniqueInput = {
+    id?: string
+  }
+
+  export type LineUserOrderByWithAggregationInput = {
+    id?: SortOrder
+    callback?: SortOrder
+    category?: SortOrder
+    url?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LineUserCountOrderByAggregateInput
+    _max?: LineUserMaxOrderByAggregateInput
+    _min?: LineUserMinOrderByAggregateInput
+  }
+
+  export type LineUserScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<LineUserScalarWhereWithAggregatesInput>
+    OR?: Enumerable<LineUserScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<LineUserScalarWhereWithAggregatesInput>
+    id?: StringWithAggregatesFilter | string
+    callback?: StringWithAggregatesFilter | string
+    category?: StringNullableListFilter
+    url?: StringWithAggregatesFilter | string
+    type?: StringWithAggregatesFilter | string
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     active: string
@@ -3035,6 +4074,72 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     category?: BlogUpdatecategoryInput | Enumerable<string>
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LineUserCreateInput = {
+    id: string
+    callback: string
+    category?: LineUserCreatecategoryInput | Enumerable<string>
+    url: string
+    type: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LineUserUncheckedCreateInput = {
+    id: string
+    callback: string
+    category?: LineUserCreatecategoryInput | Enumerable<string>
+    url: string
+    type: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LineUserUpdateInput = {
+    callback?: StringFieldUpdateOperationsInput | string
+    category?: LineUserUpdatecategoryInput | Enumerable<string>
+    url?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LineUserUncheckedUpdateInput = {
+    callback?: StringFieldUpdateOperationsInput | string
+    category?: LineUserUpdatecategoryInput | Enumerable<string>
+    url?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LineUserCreateManyInput = {
+    id: string
+    callback: string
+    category?: LineUserCreatecategoryInput | Enumerable<string>
+    url: string
+    type: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LineUserUpdateManyMutationInput = {
+    callback?: StringFieldUpdateOperationsInput | string
+    category?: LineUserUpdatecategoryInput | Enumerable<string>
+    url?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LineUserUncheckedUpdateManyInput = {
+    callback?: StringFieldUpdateOperationsInput | string
+    category?: LineUserUpdatecategoryInput | Enumerable<string>
+    url?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3202,6 +4307,34 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type LineUserCountOrderByAggregateInput = {
+    id?: SortOrder
+    callback?: SortOrder
+    category?: SortOrder
+    url?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LineUserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    callback?: SortOrder
+    url?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LineUserMinOrderByAggregateInput = {
+    id?: SortOrder
+    callback?: SortOrder
+    url?: SortOrder
+    type?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type UserCreatepermissionsInput = {
     set: Enumerable<string>
   }
@@ -3231,6 +4364,15 @@ export namespace Prisma {
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
     unset?: boolean
+  }
+
+  export type LineUserCreatecategoryInput = {
+    set: Enumerable<string>
+  }
+
+  export type LineUserUpdatecategoryInput = {
+    set?: Enumerable<string>
+    push?: string | Enumerable<string>
   }
 
   export type NestedStringFilter = {

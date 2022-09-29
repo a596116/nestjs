@@ -16,6 +16,8 @@ import { FashionPostBack } from './line-handler/postback/templates/fashion'
 import { PhotoPostBack } from './line-handler/postback/templates/photo'
 import { MoviePostBack } from './line-handler/postback/templates/movie'
 import { TechnologyPostBack } from './line-handler/postback/templates/technology'
+import { FollowHandler } from './line-handler/follow/follow.handler'
+import { SettingPostBack } from './line-handler/postback/templates/setting'
 
 @Module({
   providers: [
@@ -35,6 +37,8 @@ import { TechnologyPostBack } from './line-handler/postback/templates/technology
     PhotoPostBack,
     MoviePostBack,
     TechnologyPostBack,
+    SettingPostBack,
+    FollowHandler
   ],
   controllers: [LinebotController]
 })

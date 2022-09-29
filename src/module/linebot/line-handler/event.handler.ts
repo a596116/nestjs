@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { FollowHandler } from './follow/follow.handler'
 import { MessageHandler } from './message/message.handler'
 import { PostbackHandler } from './postback/postback.handler'
 
@@ -8,12 +9,13 @@ export class LineHandleEvent {
 
   constructor(
     private readonly messageHandler: MessageHandler,
-    private readonly postbackHandler: PostbackHandler
+    private readonly postbackHandler: PostbackHandler,
+    private readonly followHandler: FollowHandler,
   ) {
     this.lineEvents = {
       message: this.messageHandler,
-      follow: 'event type -> follow',
-      unfollow: 'event type -> unfollow',
+      follow: this.followHandler,
+      unfollow: this.followHandler,
       join: 'event type -> join',
       leave: 'event type -> forleave',
       postback: this.postbackHandler,
@@ -22,6 +24,7 @@ export class LineHandleEvent {
   }
 
   handleEvent(events: any[]): any[] {
+    // if (events[0].type === 'unfollow') return
     return events.map(event => this.lineEvents[event.type].handleByEvent(event))
   }
 }

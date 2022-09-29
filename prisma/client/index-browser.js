@@ -98,6 +98,16 @@ exports.Prisma.BlogScalarFieldEnum = makeEnum({
   updatedAt: 'updatedAt'
 });
 
+exports.Prisma.LineUserScalarFieldEnum = makeEnum({
+  id: 'id',
+  callback: 'callback',
+  category: 'category',
+  url: 'url',
+  type: 'type',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+});
+
 exports.Prisma.QueryMode = makeEnum({
   default: 'default',
   insensitive: 'insensitive'
@@ -123,7 +133,8 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
 
 exports.Prisma.ModelName = makeEnum({
   User: 'User',
-  Blog: 'Blog'
+  Blog: 'Blog',
+  LineUser: 'LineUser'
 });
 
 /**

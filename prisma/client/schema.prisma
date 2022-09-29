@@ -30,3 +30,12 @@ model Blog {
   updatedAt   DateTime @updatedAt
 }
 
+model LineUser {
+  id          String @id @map("_id")
+  callback    String
+  category    String[]
+  url         String
+  type        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
