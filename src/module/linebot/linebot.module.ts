@@ -15,6 +15,8 @@ import { ContactAdminContext } from './line-handler/message/types/text-context/c
 import { PhotoPostBack } from './line-handler/postback/templates/photo'
 import { FollowHandler } from './line-handler/follow/follow.handler'
 import { SettingPostBack } from './line-handler/postback/templates/setting'
+import { ArticlePostBack } from './line-handler/postback/templates/article'
+import { FindArticlePostBack } from './line-handler/postback/templates/findarticle'
 
 @Module({
   providers: [
@@ -32,6 +34,8 @@ import { SettingPostBack } from './line-handler/postback/templates/setting'
     ContactAdminContext,
     PhotoPostBack,
     SettingPostBack,
+    ArticlePostBack,
+    FindArticlePostBack,
     FollowHandler
   ],
   controllers: [LinebotController]

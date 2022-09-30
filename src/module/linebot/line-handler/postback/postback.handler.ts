@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '../../config/config.service'
 import { PostbackEventPayload } from '../../interfaces/line.interface'
+import { ArticlePostBack } from './templates/article'
+import { FindArticlePostBack } from './templates/findarticle'
 import { PhotoPostBack } from './templates/photo'
 import { SettingPostBack } from './templates/setting'
 
@@ -10,11 +12,15 @@ export class PostbackHandler {
   constructor(
     private readonly PhotoPostBack: PhotoPostBack,
     private readonly SettingPostBack: SettingPostBack,
+    private readonly ArticlePostBack: ArticlePostBack,
+    private readonly FindArticlePostBack: FindArticlePostBack,
     private configService: ConfigService
   ) {
     this.postbackTypes = {
       photo: this.PhotoPostBack,
-      setting: this.SettingPostBack
+      setting: this.SettingPostBack,
+      http: this.ArticlePostBack,
+      findArticle: this.FindArticlePostBack,
     }
   }
   async handleByEvent(event: PostbackEventPayload): Promise<any> {
@@ -24,6 +30,7 @@ export class PostbackHandler {
       data.match(new RegExp('^' + k, 'ig')) ? type = k : null
     })
     const postback = await this.postbackTypes[type]?.handleByPostBackType(event) || null
+
     if (postback) {
       return await this.configService.createLinebotClient().replyMessage(replyToken, postback)
         .catch(err => {

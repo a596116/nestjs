@@ -25,6 +25,7 @@
   "dependencies": {
     "@liaoliaots/nestjs-redis": "^9.0.1",
     "@line/bot-sdk": "^7.5.2",
+    "@line/liff": "^2.21.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",

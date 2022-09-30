@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@liaoliaots/nestjs-redis': ^9.0.1
   '@line/bot-sdk': ^7.5.2
+  '@line/liff': ^2.21.1
   '@nestjs/cli': ^9.0.0
   '@nestjs/common': ^9.0.0
   '@nestjs/config': ^2.2.0
@@ -54,6 +55,7 @@ specifiers:
 dependencies:
   '@liaoliaots/nestjs-redis': 9.0.1_6mj4qxygzl63jjvfcahicouhfq
   '@line/bot-sdk': 7.5.2
+  '@line/liff': 2.21.1
   '@nestjs/common': 9.0.11_allg6cauirbqzgqcmexy2wdnoq
   '@nestjs/config': 2.2.0_3mdbamkp7cmelffjfexsjo7tau
   '@nestjs/core': 9.0.11_psficsz3mqirqwo2ujbfhdr2aa
@@ -859,6 +861,539 @@ packages:
       tslib: 2.4.0
     dev: false
 
+  /@liff/add-to-home-screen/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-qspn0Yhk6cPqnv1d25ve0tygzHOeHoDsP07lyWijEO8THxckB0rIfzbMuD8hFx7RS3YDu8eKSXdDbg9DbVz1Ww==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/check-availability': 2.21.1_tslib@2.4.0
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/is-sub-window': 2.21.1_tslib@2.4.0
+      '@liff/native-bridge': 2.21.1_tslib@2.4.0
+      '@liff/open-window': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/analytics/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-NhVQB5HBs1FV0jmN8h7acMu2Yi1gleBVG/cBgsi2652MUtkbPBy6pF8tGS7XORDtj9v3t+4QMEJdjXBLAzMkOw==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/get-profile': 2.21.1_tslib@2.4.0
+      '@liff/get-version': 2.21.1_tslib@2.4.0
+      '@liff/is-logged-in': 2.21.1_tslib@2.4.0
+      '@liff/logger': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/types': 2.21.1
+      '@liff/use': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/check-availability/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-bBml81xu+V/xw9/ImX/JUHhgXn+qSbQg2Aq5KyqH9xT2GklMPJDH4l5kcyAgsSCjWXzthXS42jq28bnSo9w2oQ==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/get-version': 2.21.1_tslib@2.4.0
+      '@liff/is-api-available': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/close-window/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-PS4BlqkQbUTsc4rmwtzF35wqlIlATjPww0E2R9dc3t7BqXEvQZ7ZD7REtUztZXyRGNWqu4GW/dLUJh8GP26J8A==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/get-line-version': 2.21.1_tslib@2.4.0
+      '@liff/get-os': 2.21.1_tslib@2.4.0
+      '@liff/native-bridge': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/consts/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-H1nq8DgpJpBjq6wShwZVmdrvfS2DZOmbu9olWGccJ6tmZ09rLAVYN7GRhqhQo5DubztichfRiS/CkUhKo5AG9Q==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/extensions/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-Zkq+lgtLOYIl2vdFuY+t7e9037a4lS9b7Ys8+EEZtuiG2/exrcOASmZWRrXtAzY5ms7wCT1V4AxSCx1Sg3TxBQ==}
+    dependencies:
+      '@liff/add-to-home-screen': 2.21.1_tslib@2.4.0
+      '@liff/check-availability': 2.21.1_tslib@2.4.0
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/get-advertising-id': 2.21.1_tslib@2.4.0
+      '@liff/get-line-version': 2.21.1_tslib@2.4.0
+      '@liff/get-os': 2.21.1_tslib@2.4.0
+      '@liff/logger': 2.21.1_tslib@2.4.0
+      '@liff/scan-code': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+    transitivePeerDependencies:
+      - tslib
+    dev: false
+
+  /@liff/get-advertising-id/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-a4wLGiB/2XZvTKShdbQCbyWNNsfnfdEWjhhAjnw0xjwvaQjVLRAQyrve0LDEmmBQMQtFN+cS2NOejgs5LZspRQ==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/check-availability': 2.21.1_tslib@2.4.0
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/native-bridge': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/get-friendship/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-F77TuTXsmQGOfMNU7moIsyjRQpCpt+2qh51e6qKh87sXns0ownyHY385QXVljr5LX150snovmXn06KiNOxXo1g==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/server-api': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/get-language/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-wMaQFa7A5kSZ236VXXBiZVa7jYXyCUtLj7zuTvJTpUEDIM4ZStldEefp2Ssav523F5tc2TudEvRm/tutw6b9Xw==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/get-line-version/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-CoU80EwnmGYuAau4WrFMXVmVhNyKpWY9w/9Z81+vtnOfbhSpYe98Qve5AT99i7MrI19H+1tCzjJTouOp2SyQ0g==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/get-os/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-lCwZpRdviwMp7UFPrkxJAU1V4BuRWM/ugjKz2CSPGyJugxHCM2aI2vv4wAudSfkHZLyph0NfcWEH0gkDdwMMyA==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/get-profile/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-HkI7t2qeQ/vMWN3WnHY+oJbM9PUr8CNuBOU94CRA3u+VVv4/xX/zABtgi5y3ywKkGQpRwC6Qm5NBfEm/E33qFw==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/server-api': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/get-version/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-6DRQLvyvqqTyWcS9KHFUAFFPZNBj29xgf6XfCRsLT4hGV7hrT9ZmivYoc7cNuH97Zu2EPrTfI2+FckYVFQJa5Q==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/hooks/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-te8LOatZU1llvrh2Mt/8G8Hid24s12wCuNYIYm+j5UZZ3yy8K/hgF9Sc/E6kx0XJAy2UAndy68RU8L8Tm1vV0A==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/i18n/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-ryeo/toluoCXqfZXU1vm7X0AcbbUG899nDX/udnvunzTGBhwJZbIZEMYVUBkaZ3UGnKuWJb0sNRkktQCHp9YBQ==}
+    peerDependencies:
+      tslib: 2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/server-api': 2.21.1_tslib@2.4.0
+      '@liff/use': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/init/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-SRS5+4B5iVpHFnC8pcomiaHZuEtUp7hoEkKsgrKiMpKnXt9EDkbiw2jLvKRDRwodiIs23S69WP2vhcDqVWO2SA==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/close-window': 2.21.1_tslib@2.4.0
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/extensions': 2.21.1_tslib@2.4.0
+      '@liff/get-line-version': 2.21.1_tslib@2.4.0
+      '@liff/get-os': 2.21.1_tslib@2.4.0
+      '@liff/hooks': 2.21.1_tslib@2.4.0
+      '@liff/i18n': 2.21.1_tslib@2.4.0
+      '@liff/is-api-available': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/is-logged-in': 2.21.1_tslib@2.4.0
+      '@liff/is-sub-window': 2.21.1_tslib@2.4.0
+      '@liff/logger': 2.21.1_tslib@2.4.0
+      '@liff/login': 2.21.1_tslib@2.4.0
+      '@liff/logout': 2.21.1_tslib@2.4.0
+      '@liff/message-bus': 2.21.1_tslib@2.4.0
+      '@liff/native-bridge': 2.21.1_tslib@2.4.0
+      '@liff/ready': 2.21.1_tslib@2.4.0
+      '@liff/server-api': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/sub-window': 2.21.1_tslib@2.4.0
+      '@liff/types': 2.21.1
+      '@liff/use': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/is-api-available/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-WElEVpI7AxPe9tPJVcpX58hZOe/gwvjFR7h3BARexsS82XyrrNenCK/KFbNScXXn7jvqwBbQBID/jO9ad0o7Mg==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/get-line-version': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/is-logged-in': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/is-in-client/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-CWwu+RwQ+KDpA/bb2LuSquY0mLhmf5XCEJsKWKDNV55RcJEKx494XUXBoFkbNKmxxdWNF4lwP4+U3KVylhyv4g==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/is-logged-in/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-AFQxqGMNkXTkFVyeOJ6qsupP1gSUYlnoXPkg4lpnuZ5MKG2k2B46WzlU1Dp0DZnHIk3xNexQbbt58ec81HPb9A==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/store': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/is-sub-window/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-Q0tqM63iPSnCpI38muySLJ3xQECRhlOqXU3afzOAKlZrfNIeimnVU/J47Z5y5cKE3UEMoDVE7TWm3zFeQ4/zOw==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/use': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/liff-types/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-pU8+PkNEJy+1rFnBMIYfRjksltkkBi9DFArDQG3dKwq4mPb5ycD7mkJEvQGq3kWw/MSVziYAClVCAJoftF0ELA==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/analytics': 2.21.1_tslib@2.4.0
+      '@liff/close-window': 2.21.1_tslib@2.4.0
+      '@liff/get-friendship': 2.21.1_tslib@2.4.0
+      '@liff/get-language': 2.21.1_tslib@2.4.0
+      '@liff/get-line-version': 2.21.1_tslib@2.4.0
+      '@liff/get-os': 2.21.1_tslib@2.4.0
+      '@liff/get-profile': 2.21.1_tslib@2.4.0
+      '@liff/get-version': 2.21.1_tslib@2.4.0
+      '@liff/i18n': 2.21.1_tslib@2.4.0
+      '@liff/init': 2.21.1_tslib@2.4.0
+      '@liff/is-api-available': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/is-logged-in': 2.21.1_tslib@2.4.0
+      '@liff/is-sub-window': 2.21.1_tslib@2.4.0
+      '@liff/login': 2.21.1_tslib@2.4.0
+      '@liff/logout': 2.21.1_tslib@2.4.0
+      '@liff/native-bridge': 2.21.1_tslib@2.4.0
+      '@liff/open-window': 2.21.1_tslib@2.4.0
+      '@liff/permanent-link': 2.21.1_tslib@2.4.0
+      '@liff/permission': 2.21.1_tslib@2.4.0
+      '@liff/ready': 2.21.1_tslib@2.4.0
+      '@liff/scan-code-v2': 2.21.1_tslib@2.4.0
+      '@liff/send-messages': 2.21.1_tslib@2.4.0
+      '@liff/share-target-picker': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/sub-window': 2.21.1_tslib@2.4.0
+      '@liff/use': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+    dev: false
+
+  /@liff/logger/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-5au2Je8atUuTc2pnn8ke9JbjHB+EVls18Ll/lLBPXvLViSfpvA7a8bi3ftq/QAZViqP0SXKtP3VHZms3H/7j/Q==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/login/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-McqGmfTfbvIs+rnDfJcGxQTIT/k/6hJT7awjhsft3s4K7+J328xqjLDGuwub1j0MH3jNCeuJvkn1+O0AXJs6nw==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/get-version': 2.21.1_tslib@2.4.0
+      '@liff/hooks': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/is-sub-window': 2.21.1_tslib@2.4.0
+      '@liff/logger': 2.21.1_tslib@2.4.0
+      '@liff/server-api': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/sub-window': 2.21.1_tslib@2.4.0
+      '@liff/use': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tiny-sha256: 1.0.2
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/logout/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-T5itF5kw+OUP//YdxMrO/5PwGQphVbYiW4XtSJ2aXVFMDCaLpwK5mdDtRgYZdP5l39ESRrx8jsDMS1L+6z/q1w==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/store': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/message-bus/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-Q2fFsxmsAsVROQwOW6Ao2cx+CFiDOOV4kv72HSXrTBMSrwHgNvikqJFasu0kWR8ITQkkAE6Iw/8SFnytsFBpJw==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/native-bridge/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-LpL70nHAMQOYf3qYC60Duo5tt4M8q72LcCApr86+b1YnW40d3KfYSCfUpMJ9ZqaaKtMBn/f5Cw47rdr+fB+9EA==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/logger': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/open-window/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-4+chUQvVBotpHZjLb0P5ZTgB/Jn0lEd6RqnO+3t1jP5hOd15epNlohhyfumRpju7wNYSt8EGt5DWaR/+XWg2Wg==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/get-line-version': 2.21.1_tslib@2.4.0
+      '@liff/get-os': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/native-bridge': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/permanent-link/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-ySria+deQh6S3ua1gk7RS6/e1+OcJkbc1QvEFJ3I3C76EhhhG8rAwsTOT2AEBoVsD5J4n/aL7+kElXF5C2yw8Q==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/server-api': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/use': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/permission/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-Iz1KAnMrHQa0Sf7wXX82I71Fr9LoWqXnpNIY0HDiXgaa1QOgrOmvlge0Rf6WLLrMgO94RQuUz9aGD3mPqWGmTg==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/is-api-available': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/server-api': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/sub-window': 2.21.1_tslib@2.4.0
+      '@liff/use': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/ready/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-JJtn/ty6oUDfanQbvBIDSSgF/KqCct/HTPQlqcwXJMpBAfFyC2Q+01544Ec7htUDfcF4TSkr7OpJjsygCvIl4g==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/scan-code-v2/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-3nzj26bJo9iBi+O1OQcJdNVMZ6aIEbrTJruEfsztS1IUxXRiaEMuuDDxZzx6BRZImeJFEhDnzTHDhIS0MG/45A==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/is-api-available': 2.21.1_tslib@2.4.0
+      '@liff/sub-window': 2.21.1_tslib@2.4.0
+      '@liff/use': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/scan-code/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-NmsdB6dfV2mtn4UwNw+5W16zJImJWoAbR2xcvRlsqvwY0cBW/eG2bgkj1tprOh5RcWQO8npS9Phk1JW7lFDxfQ==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/check-availability': 2.21.1_tslib@2.4.0
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/native-bridge': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/send-messages/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-5uux73HoBpmzq7CUvza303gGRRyo6r0Wdr73ezE9DnbOWngygifFcnGSKAy7Z3hlvH8RfAMtsr946co/NxJg/g==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/get-line-version': 2.21.1_tslib@2.4.0
+      '@liff/get-os': 2.21.1_tslib@2.4.0
+      '@liff/server-api': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      '@line/bot-sdk': 7.5.2
+      tslib: 2.4.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+    dev: false
+
+  /@liff/server-api/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-YOO6CP2CoqXVDRKGnmg8ob7H9RsJeDE7IcqwXxMw8zkAOgnhGvvaCpGbfWmYp+z58Ci1XCQVWtthBbMqJKNHjQ==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/share-target-picker/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-YN5Zh3dbAOgyrLNRisB9zmWquUlZVTdLr3je229qdBkbU9u07lVL29gqhruOfnXUeWyzuKjvk/xsXNA3cjQJ9Q==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/analytics': 2.21.1_tslib@2.4.0
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/get-line-version': 2.21.1_tslib@2.4.0
+      '@liff/get-os': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/is-logged-in': 2.21.1_tslib@2.4.0
+      '@liff/is-sub-window': 2.21.1_tslib@2.4.0
+      '@liff/logger': 2.21.1_tslib@2.4.0
+      '@liff/send-messages': 2.21.1_tslib@2.4.0
+      '@liff/server-api': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/types': 2.21.1
+      '@liff/use': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      '@liff/window-postmessage': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+    dev: false
+
+  /@liff/store/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-KVr89fMdBLKlouz4DZjNyVhaMRF3ok4QGRbc+bZmzStj1VEvqRpsTBYNz6ODcCKCIDei0+eJARq6+LiisaLQ7g==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/types': 2.21.1
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/sub-window/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-NkKDEojAecOYTBAUd7ylGXvR9IEGhFWskMtWhYm8k3IJ6TJ9xVRvcn5Wn/EOUbBw3H3YNwXKsFhHGrcW2jewvA==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/close-window': 2.21.1_tslib@2.4.0
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/get-os': 2.21.1_tslib@2.4.0
+      '@liff/is-api-available': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/is-sub-window': 2.21.1_tslib@2.4.0
+      '@liff/logger': 2.21.1_tslib@2.4.0
+      '@liff/message-bus': 2.21.1_tslib@2.4.0
+      '@liff/server-api': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/types/2.21.1:
+    resolution: {integrity: sha512-kqqGUqvlsnz0B9tmxcrm5DTwrMkk/7FbyLmVUs8FjTXBw75wjrwgBGm0IQqa/6OkfgNRy33pw8QGpZjLC2coEA==}
+    dev: false
+
+  /@liff/use/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-LRCiIoPoytlG/FXY3Rxe3Vkj9DS2NjUBmy20tuFWqzzmJO4kE2uhHT+gmhE3glkKjmIImr+U9ZgNIL6jdpKu9w==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/hooks': 2.21.1_tslib@2.4.0
+      '@liff/logger': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/util/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-huBsmX9qLm4AQesz05mTgQmD8/OG2CfVYkAnx6f8/E9vpwRGmB5WC/q5SQ2AWHO2LTOovH0TBraMZjkClJ3WfQ==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/logger': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
+  /@liff/window-postmessage/2.21.1_tslib@2.4.0:
+    resolution: {integrity: sha512-ortEJOOUtu94zDugEOltKFXZXAQi0t7YD0WqClpkSltiVKCO0A6I37ivri1CQtG2X+W8iuqB65bU4bOhC4OxUw==}
+    peerDependencies:
+      tslib: ^2.3.0
+    dependencies:
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/logger': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      tslib: 2.4.0
+    dev: false
+
   /@line/bot-sdk/7.5.2:
     resolution: {integrity: sha512-mMaDnr+mOqQDLYJcUp+fQwZklg/LoOZzNILlWdsj2IFD2nXF+HhAm3KEy5tyUx629Y2bCx6nv9Jl0UlMwBiAiw==}
     engines: {node: '>=10'}
@@ -869,6 +1404,50 @@ packages:
       body-parser: 1.20.0
       file-type: 16.5.4
       form-data: 4.0.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+    dev: false
+
+  /@line/liff/2.21.1:
+    resolution: {integrity: sha512-bkqC3hpTW8RfoF/Wo9RpDTV5sytY65jBuxi0GzHRIQx7uY6d/8wFWYtTtG80/B9jkoSBdwkljdenne6ZZaGluw==}
+    dependencies:
+      '@liff/analytics': 2.21.1_tslib@2.4.0
+      '@liff/close-window': 2.21.1_tslib@2.4.0
+      '@liff/consts': 2.21.1_tslib@2.4.0
+      '@liff/extensions': 2.21.1_tslib@2.4.0
+      '@liff/get-friendship': 2.21.1_tslib@2.4.0
+      '@liff/get-language': 2.21.1_tslib@2.4.0
+      '@liff/get-line-version': 2.21.1_tslib@2.4.0
+      '@liff/get-os': 2.21.1_tslib@2.4.0
+      '@liff/get-profile': 2.21.1_tslib@2.4.0
+      '@liff/get-version': 2.21.1_tslib@2.4.0
+      '@liff/hooks': 2.21.1_tslib@2.4.0
+      '@liff/i18n': 2.21.1_tslib@2.4.0
+      '@liff/init': 2.21.1_tslib@2.4.0
+      '@liff/is-api-available': 2.21.1_tslib@2.4.0
+      '@liff/is-in-client': 2.21.1_tslib@2.4.0
+      '@liff/is-logged-in': 2.21.1_tslib@2.4.0
+      '@liff/is-sub-window': 2.21.1_tslib@2.4.0
+      '@liff/liff-types': 2.21.1_tslib@2.4.0
+      '@liff/login': 2.21.1_tslib@2.4.0
+      '@liff/logout': 2.21.1_tslib@2.4.0
+      '@liff/native-bridge': 2.21.1_tslib@2.4.0
+      '@liff/open-window': 2.21.1_tslib@2.4.0
+      '@liff/permanent-link': 2.21.1_tslib@2.4.0
+      '@liff/permission': 2.21.1_tslib@2.4.0
+      '@liff/ready': 2.21.1_tslib@2.4.0
+      '@liff/scan-code-v2': 2.21.1_tslib@2.4.0
+      '@liff/send-messages': 2.21.1_tslib@2.4.0
+      '@liff/server-api': 2.21.1_tslib@2.4.0
+      '@liff/share-target-picker': 2.21.1_tslib@2.4.0
+      '@liff/store': 2.21.1_tslib@2.4.0
+      '@liff/sub-window': 2.21.1_tslib@2.4.0
+      '@liff/use': 2.21.1_tslib@2.4.0
+      '@liff/util': 2.21.1_tslib@2.4.0
+      promise-polyfill: 8.2.3
+      tslib: 2.4.0
+      whatwg-fetch: 3.6.2
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -4455,6 +5034,10 @@ packages:
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
+  /promise-polyfill/8.2.3:
+    resolution: {integrity: sha512-Og0+jCRQetV84U8wVjMNccfGCnMQ9mGs9Hv78QFe+pSDD3gWTpz0y+1QCuxy5d/vBFuZ3iwP2eycAkvqIMPmWg==}
+    dev: false
+
   /prompts/2.4.2:
     resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==}
     engines: {node: '>= 6'}
@@ -5068,6 +5651,10 @@ packages:
     resolution: {integrity: sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==}
     dev: false
 
+  /tiny-sha256/1.0.2:
+    resolution: {integrity: sha512-IdsPtu8eJ0SwuCWUFm2euFH3jJvtpGQC0VpZNZlqxRvQ2zGvSjbXDO+4T8Rm5ETsmCQHHvKUGds69bJYrlb3Tg==}
+    dev: false
+
   /tmp/0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
     engines: {node: '>=0.6.0'}
@@ -5405,6 +5992,10 @@ packages:
       - esbuild
       - uglify-js
     dev: true
+
+  /whatwg-fetch/3.6.2:
+    resolution: {integrity: sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==}
+    dev: false
 
   /whatwg-url/5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
