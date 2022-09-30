@@ -28,8 +28,13 @@ export class TextHandler {
   }
 
   async handleByMessageType(messageEvent: MessageEventPayload): Promise<any> {
-    const { message: { text } } = messageEvent
-    return this.messageContext[MappingContext.detector[text]]?.handleByMessageContext(messageEvent) ?? this.replyDefaultMessage(messageEvent)
+    const { replyToken } = messageEvent
+    return await this.replyDefaultMessage(messageEvent).catch(async err => {
+      return await this.configService.createLinebotClient().replyMessage(replyToken, {
+        type: 'text',
+        text: '發生錯誤！'
+      })
+    })
   }
 
   private async replyDefaultMessage(messageEvent: MessageEventPayload): Promise<MessageAPIResponseBase> {
@@ -37,22 +42,22 @@ export class TextHandler {
     if (type === 'message') {
       switch (text.replace(/^\s*|\s*$/g, "")) {
         case 'Fashion': {
-          return this.configService.createLinebotClient().replyMessage(replyToken, fashionTemplate)
+          return await this.configService.createLinebotClient().replyMessage(replyToken, fashionTemplate)
         }
         case 'Movie': {
-          return this.configService.createLinebotClient().replyMessage(replyToken, movieTemplate)
+          return await this.configService.createLinebotClient().replyMessage(replyToken, movieTemplate)
         }
         case 'Technology': {
-          return this.configService.createLinebotClient().replyMessage(replyToken, technologyTemplate)
+          return await this.configService.createLinebotClient().replyMessage(replyToken, technologyTemplate)
         }
         case 'Menus': {
-          return this.configService.createLinebotClient().replyMessage(replyToken, menuTemplate)
+          return await this.configService.createLinebotClient().replyMessage(replyToken, menuTemplate)
         }
         case 'Github': {
-          return this.configService.createLinebotClient().replyMessage(replyToken, githubTemplate)
+          return await this.configService.createLinebotClient().replyMessage(replyToken, githubTemplate)
         }
         case 'Setting': {
-          return this.configService.createLinebotClient().replyMessage(replyToken, await settingTemplate(userId))
+          return await this.configService.createLinebotClient().replyMessage(replyToken, await settingTemplate(userId))
         }
         case '?':
         case decodeURI('%EF%BC%9F'):
@@ -63,14 +68,14 @@ export class TextHandler {
           if (user.callback && user.callback.match(/^(setting)/ig)[0] === 'setting') {
             switch (user.callback) {
               case 'setting新增': {
-                return this.configService.createLinebotClient().replyMessage(replyToken, await settingAdd(userId, text))
+                return await this.configService.createLinebotClient().replyMessage(replyToken, await settingAdd(userId, text))
               }
               case 'setting刪除': {
-                return this.configService.createLinebotClient().replyMessage(replyToken, await settingDel(userId, text))
+                return await this.configService.createLinebotClient().replyMessage(replyToken, await settingDel(userId, text))
               }
             }
           } else {
-            return this.configService.createLinebotClient().replyMessage(replyToken, {
+            return await this.configService.createLinebotClient().replyMessage(replyToken, {
               type: 'text',
               text: '請嘗試其他功能！'
             })

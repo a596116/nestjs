@@ -25,6 +25,6 @@ export class LineHandleEvent {
 
   handleEvent(events: any[]): any[] {
     // if (events[0].type === 'unfollow') return
-    return events.map(event => this.lineEvents[event.type].handleByEvent(event))
+    return events.map(async event => await this.lineEvents[event.type].handleByEvent(event))
   }
 }
