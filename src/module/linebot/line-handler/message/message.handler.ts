@@ -6,7 +6,6 @@ import { AudioHandler } from './types/audio.handler'
 import { LocationHandler } from './types/location.handler'
 import { StickerHandler } from './types/sticker.handler'
 import { MessageEvent } from '@line/bot-sdk'
-import { ConfigService } from '../../config/config.service'
 
 @Injectable()
 export class MessageHandler {

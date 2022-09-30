@@ -12,10 +12,7 @@ import { LocationHandler } from './line-handler/message/types/location.handler'
 import { StickerHandler } from './line-handler/message/types/sticker.handler'
 import { PostbackHandler } from './line-handler/postback/postback.handler'
 import { ContactAdminContext } from './line-handler/message/types/text-context/contact-admin.context'
-import { FashionPostBack } from './line-handler/postback/templates/fashion'
 import { PhotoPostBack } from './line-handler/postback/templates/photo'
-import { MoviePostBack } from './line-handler/postback/templates/movie'
-import { TechnologyPostBack } from './line-handler/postback/templates/technology'
 import { FollowHandler } from './line-handler/follow/follow.handler'
 import { SettingPostBack } from './line-handler/postback/templates/setting'
 
@@ -33,10 +30,7 @@ import { SettingPostBack } from './line-handler/postback/templates/setting'
     StickerHandler,
     PostbackHandler,
     ContactAdminContext,
-    FashionPostBack,
     PhotoPostBack,
-    MoviePostBack,
-    TechnologyPostBack,
     SettingPostBack,
     FollowHandler
   ],

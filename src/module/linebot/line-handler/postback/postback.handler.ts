@@ -1,27 +1,18 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '../../config/config.service'
 import { PostbackEventPayload } from '../../interfaces/line.interface'
-import { FashionPostBack } from './templates/fashion'
-import { MoviePostBack } from './templates/movie'
 import { PhotoPostBack } from './templates/photo'
 import { SettingPostBack } from './templates/setting'
-import { TechnologyPostBack } from './templates/technology'
 
 @Injectable()
 export class PostbackHandler {
   private readonly postbackTypes: object
   constructor(
-    private readonly FashionPostBack: FashionPostBack,
     private readonly PhotoPostBack: PhotoPostBack,
-    private readonly MoviePostBack: MoviePostBack,
-    private readonly TechnologyPostBack: TechnologyPostBack,
     private readonly SettingPostBack: SettingPostBack,
     private configService: ConfigService
   ) {
     this.postbackTypes = {
-      fashion: this.FashionPostBack,
-      movie: this.MoviePostBack,
-      technology: this.TechnologyPostBack,
       photo: this.PhotoPostBack,
       setting: this.SettingPostBack
     }

@@ -4,9 +4,6 @@ import { ContactAdminContext } from './text-context/contact-admin.context'
 import { MessageAPIResponseBase } from '@line/bot-sdk'
 import { ConfigService } from 'src/module/linebot/config/config.service'
 import { MappingContext } from '../../../lib/mapping-context'
-import { fashionTemplate } from 'src/module/linebot/line-handler/message/templates/fashion'
-import { movieTemplate } from 'src/module/linebot/line-handler/message/templates/movie'
-import { technologyTemplate } from '../templates/technology'
 import { menuTemplate } from '../templates/menu'
 import { otherTemplate } from '../templates/other'
 import { githubTemplate } from '../templates/github'
@@ -41,15 +38,6 @@ export class TextHandler {
     const { message: { text }, replyToken, type, source: { userId } } = messageEvent
     if (type === 'message') {
       switch (text.replace(/^\s*|\s*$/g, "")) {
-        case 'Fashion': {
-          return await this.configService.createLinebotClient().replyMessage(replyToken, fashionTemplate)
-        }
-        case 'Movie': {
-          return await this.configService.createLinebotClient().replyMessage(replyToken, movieTemplate)
-        }
-        case 'Technology': {
-          return await this.configService.createLinebotClient().replyMessage(replyToken, technologyTemplate)
-        }
         case 'Menus': {
           return await this.configService.createLinebotClient().replyMessage(replyToken, menuTemplate)
         }
