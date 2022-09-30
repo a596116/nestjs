@@ -30,6 +30,7 @@ export class PostbackHandler {
       data.match(new RegExp('^' + k, 'ig')) ? type = k : null
     })
     const postback = await this.postbackTypes[type]?.handleByPostBackType(event) || null
+    console.log(postback)
 
     if (postback) {
       return await this.configService.createLinebotClient().replyMessage(replyToken, postback)
