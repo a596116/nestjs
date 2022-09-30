@@ -3,7 +3,7 @@ import { ImageMapMessage } from "@line/bot-sdk"
 export const otherTemplate: ImageMapMessage = {
     type: 'imagemap',
     baseUrl: 'https://upload.cc/i1/2022/09/29/v3GJcO.jpg?',
-    altText: 'Imagemap alt text',
+    altText: 'Menus ImageMap',
     baseSize: { width: 2500, height: 1686 },
     actions: [
         { area: { x: 0, y: 0, width: 833, height: 843 }, type: 'message', text: 'Menus' },

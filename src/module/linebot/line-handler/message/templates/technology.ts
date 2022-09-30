@@ -2,7 +2,7 @@ import { TemplateMessage } from "@line/bot-sdk"
 
 export const technologyTemplate: TemplateMessage = {
     type: 'template',
-    altText: 'Buttons alt text',
+    altText: 'Technology Template',
     template: {
         type: 'buttons',
         thumbnailImageUrl: 'https://ps-attachments.s3.amazonaws.com/cc810a17-c903-405a-b914-be7622637dc2/ixTAUT5DNBKQzZaBAixIkA.jpg',

@@ -2,7 +2,7 @@ import { FlexMessage } from "@line/bot-sdk"
 
 export const menuTemplate: FlexMessage = {
     "type": "flex",
-    "altText": "menu",
+    "altText": "HaoDai Menus",
     "contents": {
         "type": 'bubble',
         "body": {

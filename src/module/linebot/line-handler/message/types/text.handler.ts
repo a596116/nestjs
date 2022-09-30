@@ -34,42 +34,42 @@ export class TextHandler {
 
   private async replyDefaultMessage(messageEvent: MessageEventPayload): Promise<MessageAPIResponseBase> {
     const { message: { text }, replyToken, type, source: { userId } } = messageEvent
-    const user = await this.prisma.lineUser.findFirst({ where: { id: userId } })
     if (type === 'message') {
-      if (user.callback && user.callback.match(/^(setting)/ig)[0] === 'setting') {
-        switch (user.callback) {
-          case 'setting新增': {
-            return this.configService.createLinebotClient().replyMessage(replyToken, await settingAdd(userId, text))
-          }
-          case 'setting刪除': {
-            return this.configService.createLinebotClient().replyMessage(replyToken, await settingDel(userId, text))
-          }
+      switch (text.replace(/^\s*|\s*$/g, "")) {
+        case 'Fashion': {
+          return this.configService.createLinebotClient().replyMessage(replyToken, fashionTemplate)
         }
-      } else {
-        switch (text.replace(/^\s*|\s*$/g, "")) {
-          case 'Fashion': {
-            return this.configService.createLinebotClient().replyMessage(replyToken, fashionTemplate)
-          }
-          case 'Movie': {
-            return this.configService.createLinebotClient().replyMessage(replyToken, movieTemplate)
-          }
-          case 'Technology': {
-            return this.configService.createLinebotClient().replyMessage(replyToken, technologyTemplate)
-          }
-          case 'Menus': {
-            return this.configService.createLinebotClient().replyMessage(replyToken, menuTemplate)
-          }
-          case 'Github': {
-            return this.configService.createLinebotClient().replyMessage(replyToken, githubTemplate)
-          }
-          case 'Setting': {
-            return this.configService.createLinebotClient().replyMessage(replyToken, await settingTemplate(userId))
-          }
-          case '?':
-          case decodeURI('%EF%BC%9F'):
-            return this.configService.createLinebotClient().replyMessage(replyToken, otherTemplate)
+        case 'Movie': {
+          return this.configService.createLinebotClient().replyMessage(replyToken, movieTemplate)
+        }
+        case 'Technology': {
+          return this.configService.createLinebotClient().replyMessage(replyToken, technologyTemplate)
+        }
+        case 'Menus': {
+          return this.configService.createLinebotClient().replyMessage(replyToken, menuTemplate)
+        }
+        case 'Github': {
+          return this.configService.createLinebotClient().replyMessage(replyToken, githubTemplate)
+        }
+        case 'Setting': {
+          return this.configService.createLinebotClient().replyMessage(replyToken, await settingTemplate(userId))
+        }
+        case '?':
+        case decodeURI('%EF%BC%9F'):
+          return this.configService.createLinebotClient().replyMessage(replyToken, otherTemplate)
 
-          default: {
+        default: {
+          const user = await this.prisma.lineUser.findFirst({ where: { id: userId } })
+          if (user.callback && user.callback.match(/^(setting)/ig)[0] === 'setting') {
+            switch (user.callback) {
+              case 'setting新增': {
+                return this.configService.createLinebotClient().replyMessage(replyToken, await settingAdd(userId, text))
+              }
+              case 'setting刪除': {
+                return this.configService.createLinebotClient().replyMessage(replyToken, await settingDel(userId, text))
+              }
+            }
+          } else {
             return this.configService.createLinebotClient().replyMessage(replyToken, {
               type: 'text',
               text: '請嘗試其他功能！'

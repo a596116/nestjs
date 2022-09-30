@@ -2,7 +2,7 @@ import { FlexMessage } from "@line/bot-sdk"
 
 export const githubTemplate: FlexMessage = {
     "type": "flex",
-    "altText": "haodai",
+    "altText": "Github Flex",
     "contents": {
         "type": "bubble",
         "hero": {

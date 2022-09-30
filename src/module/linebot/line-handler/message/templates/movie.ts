@@ -2,7 +2,7 @@ import { TemplateMessage } from "@line/bot-sdk"
 
 export const movieTemplate: TemplateMessage = {
     type: 'template',
-    altText: 'Buttons alt text',
+    altText: 'Movie Template',
     template: {
         type: 'buttons',
         thumbnailImageUrl: 'https://www.brandinlabs.com/wp-content/uploads/2013/04/twentieth-century-fox-logo.jpg',

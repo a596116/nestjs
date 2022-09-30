@@ -19,15 +19,15 @@ export class MessageHandler {
     private readonly locationHandler: LocationHandler,
     private readonly stickerHandler: StickerHandler
   ) {
-      this.messageTypes = {
-        text: this.textHandler,
-        image: this.imageHandler,
-        video: this.videoHandler,
-        audio: this.audioHandler,
-        location: this.locationHandler,
-        sticker: this.stickerHandler
-      }
+    this.messageTypes = {
+      text: this.textHandler,
+      image: this.imageHandler,
+      video: this.videoHandler,
+      audio: this.audioHandler,
+      location: this.locationHandler,
+      sticker: this.stickerHandler
     }
+  }
 
   async handleByEvent(event: MessageEvent): Promise<any> {
     return this.messageTypes[event.message.type].handleByMessageType(event)
