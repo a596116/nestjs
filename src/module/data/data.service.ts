@@ -31,10 +31,10 @@ export class DataService {
     }
 
     /**
-     * 獲取所有用戶
+     * 獲取所有文章
      * @date 2022-09-15
      */
-    async getAllBlog(page: number, query?: any) {
+    async getAllTopic(page: number, query?: any) {
         let q = []
         Object.keys(query).map(item => {
             let i = {}
@@ -50,7 +50,7 @@ export class DataService {
         })
         const order = query?.order?.replace('ending', '') || 'desc'
         const search = q.length ? { AND: q } : {}
-        const data = await this.prisma.blog.findMany({
+        const data = await this.prisma.topic.findMany({
             where: search,
             skip: (page - 1) * this.appConfig.user_page_row,
             take: this.appConfig.user_page_row,
@@ -58,7 +58,7 @@ export class DataService {
                 createdAt: order
             }]
         })
-        const total = await this.prisma.blog.count({
+        const total = await this.prisma.topic.count({
             where: search,
         })
         return paginate({
@@ -125,7 +125,7 @@ export class DataService {
             data: obj
         }).then(() => {
             return success('新增成功')
-        }).catch(() => {
+        }).catch((err) => {
             return error('新增失敗')
         })
     }

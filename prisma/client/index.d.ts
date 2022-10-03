@@ -29,10 +29,10 @@ export type User = {
 }
 
 /**
- * Model Blog
+ * Model Topic
  * 
  */
-export type Blog = {
+export type Topic = {
   id: string
   title: string
   content: string
@@ -40,6 +40,7 @@ export type Blog = {
   image: string | null
   createdAt: Date
   updatedAt: Date
+  userid: string
 }
 
 /**
@@ -191,14 +192,14 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<GlobalReject>;
 
   /**
-   * `prisma.blog`: Exposes CRUD operations for the **Blog** model.
+   * `prisma.topic`: Exposes CRUD operations for the **Topic** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Blogs
-    * const blogs = await prisma.blog.findMany()
+    * // Fetch zero or more Topics
+    * const topics = await prisma.topic.findMany()
     * ```
     */
-  get blog(): Prisma.BlogDelegate<GlobalReject>;
+  get topic(): Prisma.TopicDelegate<GlobalReject>;
 
   /**
    * `prisma.lineUser`: Exposes CRUD operations for the **LineUser** model.
@@ -693,7 +694,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Blog: 'Blog',
+    Topic: 'Topic',
     LineUser: 'LineUser',
     LineUserArticle: 'LineUserArticle'
   };
@@ -852,6 +853,55 @@ export namespace Prisma {
   /**
    * Count Types
    */
+
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+
+  export type UserCountOutputType = {
+    Topic: number
+  }
+
+  export type UserCountOutputTypeSelect = {
+    Topic?: boolean
+  }
+
+  export type UserCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | UserCountOutputTypeArgs,
+    U = keyof S
+      > = S extends true
+        ? UserCountOutputType
+    : S extends undefined
+    ? never
+    : S extends UserCountOutputTypeArgs
+    ?'include' extends U
+    ? UserCountOutputType 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]:
+    P extends keyof UserCountOutputType ? UserCountOutputType[P] : never
+  } 
+    : UserCountOutputType
+  : UserCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     * 
+    **/
+    select?: UserCountOutputTypeSelect | null
+  }
+
 
 
   /**
@@ -1106,6 +1156,13 @@ export namespace Prisma {
     phone?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    Topic?: boolean | TopicFindManyArgs
+    _count?: boolean | UserCountOutputTypeArgs
+  }
+
+  export type UserInclude = {
+    Topic?: boolean | TopicFindManyArgs
+    _count?: boolean | UserCountOutputTypeArgs
   }
 
   export type UserGetPayload<
@@ -1117,11 +1174,16 @@ export namespace Prisma {
     ? never
     : S extends UserArgs | UserFindManyArgs
     ?'include' extends U
-    ? User 
+    ? User  & {
+    [P in TrueKeys<S['include']>]:
+        P extends 'Topic' ? Array < TopicGetPayload<Exclude<S['include'], undefined | null>[P]>>  :
+        P extends '_count' ? UserCountOutputTypeGetPayload<Exclude<S['include'], undefined | null>[P]> :  never
+  } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-    P extends keyof User ? User[P] : never
+        P extends 'Topic' ? Array < TopicGetPayload<Exclude<S['select'], undefined | null>[P]>>  :
+        P extends '_count' ? UserCountOutputTypeGetPayload<Exclude<S['select'], undefined | null>[P]> :  P extends keyof User ? User[P] : never
   } 
     : User
   : User
@@ -1523,6 +1585,7 @@ export namespace Prisma {
     constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
+    Topic<T extends TopicFindManyArgs = {}>(args?: Subset<T, TopicFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Topic>>, PrismaPromise<Array<TopicGetPayload<T>>>>;
 
     private get _document();
     /**
@@ -1561,6 +1624,11 @@ export namespace Prisma {
     **/
     select?: UserSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: UserInclude | null
+    /**
      * Filter, which User to fetch.
      * 
     **/
@@ -1588,6 +1656,11 @@ export namespace Prisma {
      * 
     **/
     select?: UserSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: UserInclude | null
     /**
      * Filter, which User to fetch.
      * 
@@ -1652,6 +1725,11 @@ export namespace Prisma {
     **/
     select?: UserSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: UserInclude | null
+    /**
      * Filter, which Users to fetch.
      * 
     **/
@@ -1698,6 +1776,11 @@ export namespace Prisma {
     **/
     select?: UserSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: UserInclude | null
+    /**
      * The data needed to create a User.
      * 
     **/
@@ -1726,6 +1809,11 @@ export namespace Prisma {
      * 
     **/
     select?: UserSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: UserInclude | null
     /**
      * The data needed to update a User.
      * 
@@ -1766,6 +1854,11 @@ export namespace Prisma {
     **/
     select?: UserSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: UserInclude | null
+    /**
      * The filter to search for the User to update in case it exists.
      * 
     **/
@@ -1792,6 +1885,11 @@ export namespace Prisma {
      * 
     **/
     select?: UserSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: UserInclude | null
     /**
      * Filter which User to delete.
      * 
@@ -1867,40 +1965,47 @@ export namespace Prisma {
      * 
     **/
     select?: UserSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: UserInclude | null
   }
 
 
 
   /**
-   * Model Blog
+   * Model Topic
    */
 
 
-  export type AggregateBlog = {
-    _count: BlogCountAggregateOutputType | null
-    _min: BlogMinAggregateOutputType | null
-    _max: BlogMaxAggregateOutputType | null
+  export type AggregateTopic = {
+    _count: TopicCountAggregateOutputType | null
+    _min: TopicMinAggregateOutputType | null
+    _max: TopicMaxAggregateOutputType | null
   }
 
-  export type BlogMinAggregateOutputType = {
+  export type TopicMinAggregateOutputType = {
     id: string | null
     title: string | null
     content: string | null
     image: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    userid: string | null
   }
 
-  export type BlogMaxAggregateOutputType = {
+  export type TopicMaxAggregateOutputType = {
     id: string | null
     title: string | null
     content: string | null
     image: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    userid: string | null
   }
 
-  export type BlogCountAggregateOutputType = {
+  export type TopicCountAggregateOutputType = {
     id: number
     title: number
     content: number
@@ -1908,29 +2013,32 @@ export namespace Prisma {
     image: number
     createdAt: number
     updatedAt: number
+    userid: number
     _all: number
   }
 
 
-  export type BlogMinAggregateInputType = {
+  export type TopicMinAggregateInputType = {
     id?: true
     title?: true
     content?: true
     image?: true
     createdAt?: true
     updatedAt?: true
+    userid?: true
   }
 
-  export type BlogMaxAggregateInputType = {
+  export type TopicMaxAggregateInputType = {
     id?: true
     title?: true
     content?: true
     image?: true
     createdAt?: true
     updatedAt?: true
+    userid?: true
   }
 
-  export type BlogCountAggregateInputType = {
+  export type TopicCountAggregateInputType = {
     id?: true
     title?: true
     content?: true
@@ -1938,88 +2046,89 @@ export namespace Prisma {
     image?: true
     createdAt?: true
     updatedAt?: true
+    userid?: true
     _all?: true
   }
 
-  export type BlogAggregateArgs = {
+  export type TopicAggregateArgs = {
     /**
-     * Filter which Blog to aggregate.
+     * Filter which Topic to aggregate.
      * 
     **/
-    where?: BlogWhereInput
+    where?: TopicWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Blogs to fetch.
+     * Determine the order of Topics to fetch.
      * 
     **/
-    orderBy?: Enumerable<BlogOrderByWithRelationInput>
+    orderBy?: Enumerable<TopicOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      * 
     **/
-    cursor?: BlogWhereUniqueInput
+    cursor?: TopicWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Blogs from the position of the cursor.
+     * Take `±n` Topics from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Blogs.
+     * Skip the first `n` Topics.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Blogs
+     * Count returned Topics
     **/
-    _count?: true | BlogCountAggregateInputType
+    _count?: true | TopicCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: BlogMinAggregateInputType
+    _min?: TopicMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: BlogMaxAggregateInputType
+    _max?: TopicMaxAggregateInputType
   }
 
-  export type GetBlogAggregateType<T extends BlogAggregateArgs> = {
-        [P in keyof T & keyof AggregateBlog]: P extends '_count' | 'count'
+  export type GetTopicAggregateType<T extends TopicAggregateArgs> = {
+        [P in keyof T & keyof AggregateTopic]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateBlog[P]>
-      : GetScalarType<T[P], AggregateBlog[P]>
+        : GetScalarType<T[P], AggregateTopic[P]>
+      : GetScalarType<T[P], AggregateTopic[P]>
   }
 
 
 
 
-  export type BlogGroupByArgs = {
-    where?: BlogWhereInput
-    orderBy?: Enumerable<BlogOrderByWithAggregationInput>
-    by: Array<BlogScalarFieldEnum>
-    having?: BlogScalarWhereWithAggregatesInput
+  export type TopicGroupByArgs = {
+    where?: TopicWhereInput
+    orderBy?: Enumerable<TopicOrderByWithAggregationInput>
+    by: Array<TopicScalarFieldEnum>
+    having?: TopicScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: BlogCountAggregateInputType | true
-    _min?: BlogMinAggregateInputType
-    _max?: BlogMaxAggregateInputType
+    _count?: TopicCountAggregateInputType | true
+    _min?: TopicMinAggregateInputType
+    _max?: TopicMaxAggregateInputType
   }
 
 
-  export type BlogGroupByOutputType = {
+  export type TopicGroupByOutputType = {
     id: string
     title: string
     content: string
@@ -2027,26 +2136,27 @@ export namespace Prisma {
     image: string | null
     createdAt: Date
     updatedAt: Date
-    _count: BlogCountAggregateOutputType | null
-    _min: BlogMinAggregateOutputType | null
-    _max: BlogMaxAggregateOutputType | null
+    userid: string
+    _count: TopicCountAggregateOutputType | null
+    _min: TopicMinAggregateOutputType | null
+    _max: TopicMaxAggregateOutputType | null
   }
 
-  type GetBlogGroupByPayload<T extends BlogGroupByArgs> = PrismaPromise<
+  type GetTopicGroupByPayload<T extends TopicGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<BlogGroupByOutputType, T['by']> &
+      PickArray<TopicGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof BlogGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof TopicGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], BlogGroupByOutputType[P]>
-            : GetScalarType<T[P], BlogGroupByOutputType[P]>
+              : GetScalarType<T[P], TopicGroupByOutputType[P]>
+            : GetScalarType<T[P], TopicGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type BlogSelect = {
+  export type TopicSelect = {
     id?: boolean
     title?: boolean
     content?: boolean
@@ -2054,140 +2164,149 @@ export namespace Prisma {
     image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserArgs
+    userid?: boolean
   }
 
-  export type BlogGetPayload<
-    S extends boolean | null | undefined | BlogArgs,
+  export type TopicInclude = {
+    user?: boolean | UserArgs
+  }
+
+  export type TopicGetPayload<
+    S extends boolean | null | undefined | TopicArgs,
     U = keyof S
       > = S extends true
-        ? Blog
+        ? Topic
     : S extends undefined
     ? never
-    : S extends BlogArgs | BlogFindManyArgs
+    : S extends TopicArgs | TopicFindManyArgs
     ?'include' extends U
-    ? Blog 
+    ? Topic  & {
+    [P in TrueKeys<S['include']>]:
+        P extends 'user' ? UserGetPayload<Exclude<S['include'], undefined | null>[P]> | null :  never
+  } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-    P extends keyof Blog ? Blog[P] : never
+        P extends 'user' ? UserGetPayload<Exclude<S['select'], undefined | null>[P]> | null :  P extends keyof Topic ? Topic[P] : never
   } 
-    : Blog
-  : Blog
+    : Topic
+  : Topic
 
 
-  type BlogCountArgs = Merge<
-    Omit<BlogFindManyArgs, 'select' | 'include'> & {
-      select?: BlogCountAggregateInputType | true
+  type TopicCountArgs = Merge<
+    Omit<TopicFindManyArgs, 'select' | 'include'> & {
+      select?: TopicCountAggregateInputType | true
     }
   >
 
-  export interface BlogDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+  export interface TopicDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
     /**
-     * Find zero or one Blog that matches the filter.
-     * @param {BlogFindUniqueArgs} args - Arguments to find a Blog
+     * Find zero or one Topic that matches the filter.
+     * @param {TopicFindUniqueArgs} args - Arguments to find a Topic
      * @example
-     * // Get one Blog
-     * const blog = await prisma.blog.findUnique({
+     * // Get one Topic
+     * const topic = await prisma.topic.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUnique<T extends BlogFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, BlogFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Blog'> extends True ? CheckSelect<T, Prisma__BlogClient<Blog>, Prisma__BlogClient<BlogGetPayload<T>>> : CheckSelect<T, Prisma__BlogClient<Blog | null >, Prisma__BlogClient<BlogGetPayload<T> | null >>
+    findUnique<T extends TopicFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, TopicFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Topic'> extends True ? CheckSelect<T, Prisma__TopicClient<Topic>, Prisma__TopicClient<TopicGetPayload<T>>> : CheckSelect<T, Prisma__TopicClient<Topic | null >, Prisma__TopicClient<TopicGetPayload<T> | null >>
 
     /**
-     * Find the first Blog that matches the filter.
+     * Find the first Topic that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlogFindFirstArgs} args - Arguments to find a Blog
+     * @param {TopicFindFirstArgs} args - Arguments to find a Topic
      * @example
-     * // Get one Blog
-     * const blog = await prisma.blog.findFirst({
+     * // Get one Topic
+     * const topic = await prisma.topic.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirst<T extends BlogFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, BlogFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Blog'> extends True ? CheckSelect<T, Prisma__BlogClient<Blog>, Prisma__BlogClient<BlogGetPayload<T>>> : CheckSelect<T, Prisma__BlogClient<Blog | null >, Prisma__BlogClient<BlogGetPayload<T> | null >>
+    findFirst<T extends TopicFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, TopicFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Topic'> extends True ? CheckSelect<T, Prisma__TopicClient<Topic>, Prisma__TopicClient<TopicGetPayload<T>>> : CheckSelect<T, Prisma__TopicClient<Topic | null >, Prisma__TopicClient<TopicGetPayload<T> | null >>
 
     /**
-     * Find zero or more Blogs that matches the filter.
+     * Find zero or more Topics that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlogFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {TopicFindManyArgs=} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Blogs
-     * const blogs = await prisma.blog.findMany()
+     * // Get all Topics
+     * const topics = await prisma.topic.findMany()
      * 
-     * // Get first 10 Blogs
-     * const blogs = await prisma.blog.findMany({ take: 10 })
+     * // Get first 10 Topics
+     * const topics = await prisma.topic.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const blogWithIdOnly = await prisma.blog.findMany({ select: { id: true } })
+     * const topicWithIdOnly = await prisma.topic.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends BlogFindManyArgs>(
-      args?: SelectSubset<T, BlogFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<Blog>>, PrismaPromise<Array<BlogGetPayload<T>>>>
+    findMany<T extends TopicFindManyArgs>(
+      args?: SelectSubset<T, TopicFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<Topic>>, PrismaPromise<Array<TopicGetPayload<T>>>>
 
     /**
-     * Create a Blog.
-     * @param {BlogCreateArgs} args - Arguments to create a Blog.
+     * Create a Topic.
+     * @param {TopicCreateArgs} args - Arguments to create a Topic.
      * @example
-     * // Create one Blog
-     * const Blog = await prisma.blog.create({
+     * // Create one Topic
+     * const Topic = await prisma.topic.create({
      *   data: {
-     *     // ... data to create a Blog
+     *     // ... data to create a Topic
      *   }
      * })
      * 
     **/
-    create<T extends BlogCreateArgs>(
-      args: SelectSubset<T, BlogCreateArgs>
-    ): CheckSelect<T, Prisma__BlogClient<Blog>, Prisma__BlogClient<BlogGetPayload<T>>>
+    create<T extends TopicCreateArgs>(
+      args: SelectSubset<T, TopicCreateArgs>
+    ): CheckSelect<T, Prisma__TopicClient<Topic>, Prisma__TopicClient<TopicGetPayload<T>>>
 
     /**
-     * Create many Blogs.
-     *     @param {BlogCreateManyArgs} args - Arguments to create many Blogs.
+     * Create many Topics.
+     *     @param {TopicCreateManyArgs} args - Arguments to create many Topics.
      *     @example
-     *     // Create many Blogs
-     *     const blog = await prisma.blog.createMany({
+     *     // Create many Topics
+     *     const topic = await prisma.topic.createMany({
      *       data: {
      *         // ... provide data here
      *       }
      *     })
      *     
     **/
-    createMany<T extends BlogCreateManyArgs>(
-      args?: SelectSubset<T, BlogCreateManyArgs>
+    createMany<T extends TopicCreateManyArgs>(
+      args?: SelectSubset<T, TopicCreateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Delete a Blog.
-     * @param {BlogDeleteArgs} args - Arguments to delete one Blog.
+     * Delete a Topic.
+     * @param {TopicDeleteArgs} args - Arguments to delete one Topic.
      * @example
-     * // Delete one Blog
-     * const Blog = await prisma.blog.delete({
+     * // Delete one Topic
+     * const Topic = await prisma.topic.delete({
      *   where: {
-     *     // ... filter to delete one Blog
+     *     // ... filter to delete one Topic
      *   }
      * })
      * 
     **/
-    delete<T extends BlogDeleteArgs>(
-      args: SelectSubset<T, BlogDeleteArgs>
-    ): CheckSelect<T, Prisma__BlogClient<Blog>, Prisma__BlogClient<BlogGetPayload<T>>>
+    delete<T extends TopicDeleteArgs>(
+      args: SelectSubset<T, TopicDeleteArgs>
+    ): CheckSelect<T, Prisma__TopicClient<Topic>, Prisma__TopicClient<TopicGetPayload<T>>>
 
     /**
-     * Update one Blog.
-     * @param {BlogUpdateArgs} args - Arguments to update one Blog.
+     * Update one Topic.
+     * @param {TopicUpdateArgs} args - Arguments to update one Topic.
      * @example
-     * // Update one Blog
-     * const blog = await prisma.blog.update({
+     * // Update one Topic
+     * const topic = await prisma.topic.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2197,34 +2316,34 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends BlogUpdateArgs>(
-      args: SelectSubset<T, BlogUpdateArgs>
-    ): CheckSelect<T, Prisma__BlogClient<Blog>, Prisma__BlogClient<BlogGetPayload<T>>>
+    update<T extends TopicUpdateArgs>(
+      args: SelectSubset<T, TopicUpdateArgs>
+    ): CheckSelect<T, Prisma__TopicClient<Topic>, Prisma__TopicClient<TopicGetPayload<T>>>
 
     /**
-     * Delete zero or more Blogs.
-     * @param {BlogDeleteManyArgs} args - Arguments to filter Blogs to delete.
+     * Delete zero or more Topics.
+     * @param {TopicDeleteManyArgs} args - Arguments to filter Topics to delete.
      * @example
-     * // Delete a few Blogs
-     * const { count } = await prisma.blog.deleteMany({
+     * // Delete a few Topics
+     * const { count } = await prisma.topic.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
     **/
-    deleteMany<T extends BlogDeleteManyArgs>(
-      args?: SelectSubset<T, BlogDeleteManyArgs>
+    deleteMany<T extends TopicDeleteManyArgs>(
+      args?: SelectSubset<T, TopicDeleteManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Blogs.
+     * Update zero or more Topics.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {TopicUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Blogs
-     * const blog = await prisma.blog.updateMany({
+     * // Update many Topics
+     * const topic = await prisma.topic.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2234,48 +2353,48 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends BlogUpdateManyArgs>(
-      args: SelectSubset<T, BlogUpdateManyArgs>
+    updateMany<T extends TopicUpdateManyArgs>(
+      args: SelectSubset<T, TopicUpdateManyArgs>
     ): PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one Blog.
-     * @param {BlogUpsertArgs} args - Arguments to update or create a Blog.
+     * Create or update one Topic.
+     * @param {TopicUpsertArgs} args - Arguments to update or create a Topic.
      * @example
-     * // Update or create a Blog
-     * const blog = await prisma.blog.upsert({
+     * // Update or create a Topic
+     * const topic = await prisma.topic.upsert({
      *   create: {
-     *     // ... data to create a Blog
+     *     // ... data to create a Topic
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Blog we want to update
+     *     // ... the filter for the Topic we want to update
      *   }
      * })
     **/
-    upsert<T extends BlogUpsertArgs>(
-      args: SelectSubset<T, BlogUpsertArgs>
-    ): CheckSelect<T, Prisma__BlogClient<Blog>, Prisma__BlogClient<BlogGetPayload<T>>>
+    upsert<T extends TopicUpsertArgs>(
+      args: SelectSubset<T, TopicUpsertArgs>
+    ): CheckSelect<T, Prisma__TopicClient<Topic>, Prisma__TopicClient<TopicGetPayload<T>>>
 
     /**
-     * Find zero or more Blogs that matches the filter.
-     * @param {BlogFindRawArgs} args - Select which filters you would like to apply.
+     * Find zero or more Topics that matches the filter.
+     * @param {TopicFindRawArgs} args - Select which filters you would like to apply.
      * @example
-     * const blog = await prisma.blog.findRaw({
+     * const topic = await prisma.topic.findRaw({
      *   filter: { age: { $gt: 25 } } 
      * })
     **/
     findRaw(
-      args?: BlogFindRawArgs
+      args?: TopicFindRawArgs
     ): PrismaPromise<JsonObject>
 
     /**
-     * Perform aggregation operations on a Blog.
-     * @param {BlogAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * Perform aggregation operations on a Topic.
+     * @param {TopicAggregateRawArgs} args - Select which aggregations you would like to apply.
      * @example
-     * const blog = await prisma.blog.aggregateRaw({
+     * const topic = await prisma.topic.aggregateRaw({
      *   pipeline: [
      *     { $match: { status: "registered" } },
      *     { $group: { _id: "$country", total: { $sum: 1 } } }
@@ -2283,71 +2402,71 @@ export namespace Prisma {
      * })
     **/
     aggregateRaw(
-      args?: BlogAggregateRawArgs
+      args?: TopicAggregateRawArgs
     ): PrismaPromise<JsonObject>
 
     /**
-     * Find one Blog that matches the filter or throw
+     * Find one Topic that matches the filter or throw
      * `NotFoundError` if no matches were found.
-     * @param {BlogFindUniqueOrThrowArgs} args - Arguments to find a Blog
+     * @param {TopicFindUniqueOrThrowArgs} args - Arguments to find a Topic
      * @example
-     * // Get one Blog
-     * const blog = await prisma.blog.findUniqueOrThrow({
+     * // Get one Topic
+     * const topic = await prisma.topic.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends BlogFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, BlogFindUniqueOrThrowArgs>
-    ): CheckSelect<T, Prisma__BlogClient<Blog>, Prisma__BlogClient<BlogGetPayload<T>>>
+    findUniqueOrThrow<T extends TopicFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, TopicFindUniqueOrThrowArgs>
+    ): CheckSelect<T, Prisma__TopicClient<Topic>, Prisma__TopicClient<TopicGetPayload<T>>>
 
     /**
-     * Find the first Blog that matches the filter or
+     * Find the first Topic that matches the filter or
      * throw `NotFoundError` if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlogFindFirstOrThrowArgs} args - Arguments to find a Blog
+     * @param {TopicFindFirstOrThrowArgs} args - Arguments to find a Topic
      * @example
-     * // Get one Blog
-     * const blog = await prisma.blog.findFirstOrThrow({
+     * // Get one Topic
+     * const topic = await prisma.topic.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
     **/
-    findFirstOrThrow<T extends BlogFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, BlogFindFirstOrThrowArgs>
-    ): CheckSelect<T, Prisma__BlogClient<Blog>, Prisma__BlogClient<BlogGetPayload<T>>>
+    findFirstOrThrow<T extends TopicFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, TopicFindFirstOrThrowArgs>
+    ): CheckSelect<T, Prisma__TopicClient<Topic>, Prisma__TopicClient<TopicGetPayload<T>>>
 
     /**
-     * Count the number of Blogs.
+     * Count the number of Topics.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlogCountArgs} args - Arguments to filter Blogs to count.
+     * @param {TopicCountArgs} args - Arguments to filter Topics to count.
      * @example
-     * // Count the number of Blogs
-     * const count = await prisma.blog.count({
+     * // Count the number of Topics
+     * const count = await prisma.topic.count({
      *   where: {
-     *     // ... the filter for the Blogs we want to count
+     *     // ... the filter for the Topics we want to count
      *   }
      * })
     **/
-    count<T extends BlogCountArgs>(
-      args?: Subset<T, BlogCountArgs>,
+    count<T extends TopicCountArgs>(
+      args?: Subset<T, TopicCountArgs>,
     ): PrismaPromise<
       T extends _Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], BlogCountAggregateOutputType>
+          : GetScalarType<T['select'], TopicCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Blog.
+     * Allows you to perform aggregations operations on a Topic.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {TopicAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -2367,13 +2486,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends BlogAggregateArgs>(args: Subset<T, BlogAggregateArgs>): PrismaPromise<GetBlogAggregateType<T>>
+    aggregate<T extends TopicAggregateArgs>(args: Subset<T, TopicAggregateArgs>): PrismaPromise<GetTopicAggregateType<T>>
 
     /**
-     * Group by Blog.
+     * Group by Topic.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlogGroupByArgs} args - Group by arguments.
+     * @param {TopicGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -2388,14 +2507,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends BlogGroupByArgs,
+      T extends TopicGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: BlogGroupByArgs['orderBy'] }
-        : { orderBy?: BlogGroupByArgs['orderBy'] },
+        ? { orderBy: TopicGroupByArgs['orderBy'] }
+        : { orderBy?: TopicGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends TupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -2444,17 +2563,17 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, BlogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBlogGroupByPayload<T> : PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, TopicGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTopicGroupByPayload<T> : PrismaPromise<InputErrors>
 
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Blog.
+   * The delegate class that acts as a "Promise-like" for Topic.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__BlogClient<T> implements PrismaPromise<T> {
+  export class Prisma__TopicClient<T> implements PrismaPromise<T> {
     [prisma]: true;
     private readonly _dmmf;
     private readonly _fetcher;
@@ -2471,6 +2590,7 @@ export namespace Prisma {
     constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
+    user<T extends UserArgs = {}>(args?: Subset<T, UserArgs>): CheckSelect<T, Prisma__UserClient<User | null >, Prisma__UserClient<UserGetPayload<T> | null >>;
 
     private get _document();
     /**
@@ -2500,25 +2620,30 @@ export namespace Prisma {
   // Custom InputTypes
 
   /**
-   * Blog base type for findUnique actions
+   * Topic base type for findUnique actions
    */
-  export type BlogFindUniqueArgsBase = {
+  export type TopicFindUniqueArgsBase = {
     /**
-     * Select specific fields to fetch from the Blog
+     * Select specific fields to fetch from the Topic
      * 
     **/
-    select?: BlogSelect | null
+    select?: TopicSelect | null
     /**
-     * Filter, which Blog to fetch.
+     * Choose, which related nodes to fetch as well.
      * 
     **/
-    where: BlogWhereUniqueInput
+    include?: TopicInclude | null
+    /**
+     * Filter, which Topic to fetch.
+     * 
+    **/
+    where: TopicWhereUniqueInput
   }
 
   /**
-   * Blog: findUnique
+   * Topic: findUnique
    */
-  export interface BlogFindUniqueArgs extends BlogFindUniqueArgsBase {
+  export interface TopicFindUniqueArgs extends TopicFindUniqueArgsBase {
    /**
     * Throw an Error if query returns no results
     * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
@@ -2528,60 +2653,65 @@ export namespace Prisma {
       
 
   /**
-   * Blog base type for findFirst actions
+   * Topic base type for findFirst actions
    */
-  export type BlogFindFirstArgsBase = {
+  export type TopicFindFirstArgsBase = {
     /**
-     * Select specific fields to fetch from the Blog
+     * Select specific fields to fetch from the Topic
      * 
     **/
-    select?: BlogSelect | null
+    select?: TopicSelect | null
     /**
-     * Filter, which Blog to fetch.
+     * Choose, which related nodes to fetch as well.
      * 
     **/
-    where?: BlogWhereInput
+    include?: TopicInclude | null
+    /**
+     * Filter, which Topic to fetch.
+     * 
+    **/
+    where?: TopicWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Blogs to fetch.
+     * Determine the order of Topics to fetch.
      * 
     **/
-    orderBy?: Enumerable<BlogOrderByWithRelationInput>
+    orderBy?: Enumerable<TopicOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Blogs.
+     * Sets the position for searching for Topics.
      * 
     **/
-    cursor?: BlogWhereUniqueInput
+    cursor?: TopicWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Blogs from the position of the cursor.
+     * Take `±n` Topics from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Blogs.
+     * Skip the first `n` Topics.
      * 
     **/
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Blogs.
+     * Filter by unique combinations of Topics.
      * 
     **/
-    distinct?: Enumerable<BlogScalarFieldEnum>
+    distinct?: Enumerable<TopicScalarFieldEnum>
   }
 
   /**
-   * Blog: findFirst
+   * Topic: findFirst
    */
-  export interface BlogFindFirstArgs extends BlogFindFirstArgsBase {
+  export interface TopicFindFirstArgs extends TopicFindFirstArgsBase {
    /**
     * Throw an Error if query returns no results
     * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
@@ -2591,179 +2721,204 @@ export namespace Prisma {
       
 
   /**
-   * Blog findMany
+   * Topic findMany
    */
-  export type BlogFindManyArgs = {
+  export type TopicFindManyArgs = {
     /**
-     * Select specific fields to fetch from the Blog
+     * Select specific fields to fetch from the Topic
      * 
     **/
-    select?: BlogSelect | null
+    select?: TopicSelect | null
     /**
-     * Filter, which Blogs to fetch.
+     * Choose, which related nodes to fetch as well.
      * 
     **/
-    where?: BlogWhereInput
+    include?: TopicInclude | null
+    /**
+     * Filter, which Topics to fetch.
+     * 
+    **/
+    where?: TopicWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Blogs to fetch.
+     * Determine the order of Topics to fetch.
      * 
     **/
-    orderBy?: Enumerable<BlogOrderByWithRelationInput>
+    orderBy?: Enumerable<TopicOrderByWithRelationInput>
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Blogs.
+     * Sets the position for listing Topics.
      * 
     **/
-    cursor?: BlogWhereUniqueInput
+    cursor?: TopicWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Blogs from the position of the cursor.
+     * Take `±n` Topics from the position of the cursor.
      * 
     **/
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Blogs.
+     * Skip the first `n` Topics.
      * 
     **/
     skip?: number
-    distinct?: Enumerable<BlogScalarFieldEnum>
+    distinct?: Enumerable<TopicScalarFieldEnum>
   }
 
 
   /**
-   * Blog create
+   * Topic create
    */
-  export type BlogCreateArgs = {
+  export type TopicCreateArgs = {
     /**
-     * Select specific fields to fetch from the Blog
+     * Select specific fields to fetch from the Topic
      * 
     **/
-    select?: BlogSelect | null
+    select?: TopicSelect | null
     /**
-     * The data needed to create a Blog.
+     * Choose, which related nodes to fetch as well.
      * 
     **/
-    data: XOR<BlogCreateInput, BlogUncheckedCreateInput>
+    include?: TopicInclude | null
+    /**
+     * The data needed to create a Topic.
+     * 
+    **/
+    data: XOR<TopicCreateInput, TopicUncheckedCreateInput>
   }
 
 
   /**
-   * Blog createMany
+   * Topic createMany
    */
-  export type BlogCreateManyArgs = {
+  export type TopicCreateManyArgs = {
     /**
-     * The data used to create many Blogs.
+     * The data used to create many Topics.
      * 
     **/
-    data: Enumerable<BlogCreateManyInput>
+    data: Enumerable<TopicCreateManyInput>
   }
 
 
   /**
-   * Blog update
+   * Topic update
    */
-  export type BlogUpdateArgs = {
+  export type TopicUpdateArgs = {
     /**
-     * Select specific fields to fetch from the Blog
+     * Select specific fields to fetch from the Topic
      * 
     **/
-    select?: BlogSelect | null
+    select?: TopicSelect | null
     /**
-     * The data needed to update a Blog.
+     * Choose, which related nodes to fetch as well.
      * 
     **/
-    data: XOR<BlogUpdateInput, BlogUncheckedUpdateInput>
+    include?: TopicInclude | null
     /**
-     * Choose, which Blog to update.
+     * The data needed to update a Topic.
      * 
     **/
-    where: BlogWhereUniqueInput
+    data: XOR<TopicUpdateInput, TopicUncheckedUpdateInput>
+    /**
+     * Choose, which Topic to update.
+     * 
+    **/
+    where: TopicWhereUniqueInput
   }
 
 
   /**
-   * Blog updateMany
+   * Topic updateMany
    */
-  export type BlogUpdateManyArgs = {
+  export type TopicUpdateManyArgs = {
     /**
-     * The data used to update Blogs.
+     * The data used to update Topics.
      * 
     **/
-    data: XOR<BlogUpdateManyMutationInput, BlogUncheckedUpdateManyInput>
+    data: XOR<TopicUpdateManyMutationInput, TopicUncheckedUpdateManyInput>
     /**
-     * Filter which Blogs to update
+     * Filter which Topics to update
      * 
     **/
-    where?: BlogWhereInput
+    where?: TopicWhereInput
   }
 
 
   /**
-   * Blog upsert
+   * Topic upsert
    */
-  export type BlogUpsertArgs = {
+  export type TopicUpsertArgs = {
     /**
-     * Select specific fields to fetch from the Blog
+     * Select specific fields to fetch from the Topic
      * 
     **/
-    select?: BlogSelect | null
+    select?: TopicSelect | null
     /**
-     * The filter to search for the Blog to update in case it exists.
+     * Choose, which related nodes to fetch as well.
      * 
     **/
-    where: BlogWhereUniqueInput
+    include?: TopicInclude | null
     /**
-     * In case the Blog found by the `where` argument doesn't exist, create a new Blog with this data.
+     * The filter to search for the Topic to update in case it exists.
      * 
     **/
-    create: XOR<BlogCreateInput, BlogUncheckedCreateInput>
+    where: TopicWhereUniqueInput
     /**
-     * In case the Blog was found with the provided `where` argument, update it with this data.
+     * In case the Topic found by the `where` argument doesn't exist, create a new Topic with this data.
      * 
     **/
-    update: XOR<BlogUpdateInput, BlogUncheckedUpdateInput>
+    create: XOR<TopicCreateInput, TopicUncheckedCreateInput>
+    /**
+     * In case the Topic was found with the provided `where` argument, update it with this data.
+     * 
+    **/
+    update: XOR<TopicUpdateInput, TopicUncheckedUpdateInput>
   }
 
 
   /**
-   * Blog delete
+   * Topic delete
    */
-  export type BlogDeleteArgs = {
+  export type TopicDeleteArgs = {
     /**
-     * Select specific fields to fetch from the Blog
+     * Select specific fields to fetch from the Topic
      * 
     **/
-    select?: BlogSelect | null
+    select?: TopicSelect | null
     /**
-     * Filter which Blog to delete.
+     * Choose, which related nodes to fetch as well.
      * 
     **/
-    where: BlogWhereUniqueInput
+    include?: TopicInclude | null
+    /**
+     * Filter which Topic to delete.
+     * 
+    **/
+    where: TopicWhereUniqueInput
   }
 
 
   /**
-   * Blog deleteMany
+   * Topic deleteMany
    */
-  export type BlogDeleteManyArgs = {
+  export type TopicDeleteManyArgs = {
     /**
-     * Filter which Blogs to delete
+     * Filter which Topics to delete
      * 
     **/
-    where?: BlogWhereInput
+    where?: TopicWhereInput
   }
 
 
   /**
-   * Blog findRaw
+   * Topic findRaw
    */
-  export type BlogFindRawArgs = {
+  export type TopicFindRawArgs = {
     /**
      * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
      * 
@@ -2778,9 +2933,9 @@ export namespace Prisma {
 
 
   /**
-   * Blog aggregateRaw
+   * Topic aggregateRaw
    */
-  export type BlogAggregateRawArgs = {
+  export type TopicAggregateRawArgs = {
     /**
      * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
      * 
@@ -2795,26 +2950,31 @@ export namespace Prisma {
 
 
   /**
-   * Blog: findUniqueOrThrow
+   * Topic: findUniqueOrThrow
    */
-  export type BlogFindUniqueOrThrowArgs = BlogFindUniqueArgsBase
+  export type TopicFindUniqueOrThrowArgs = TopicFindUniqueArgsBase
       
 
   /**
-   * Blog: findFirstOrThrow
+   * Topic: findFirstOrThrow
    */
-  export type BlogFindFirstOrThrowArgs = BlogFindFirstArgsBase
+  export type TopicFindFirstOrThrowArgs = TopicFindFirstArgsBase
       
 
   /**
-   * Blog without action
+   * Topic without action
    */
-  export type BlogArgs = {
+  export type TopicArgs = {
     /**
-     * Select specific fields to fetch from the Blog
+     * Select specific fields to fetch from the Topic
      * 
     **/
-    select?: BlogSelect | null
+    select?: TopicSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: TopicInclude | null
   }
 
 
@@ -4820,19 +4980,6 @@ export namespace Prisma {
   // Based on
   // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
 
-  export const BlogScalarFieldEnum: {
-    id: 'id',
-    title: 'title',
-    content: 'content',
-    category: 'category',
-    image: 'image',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
-
-
   export const LineUserArticleScalarFieldEnum: {
     id: 'id',
     url: 'url',
@@ -4874,6 +5021,20 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const TopicScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    content: 'content',
+    category: 'category',
+    image: 'image',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    userid: 'userid'
+  };
+
+  export type TopicScalarFieldEnum = (typeof TopicScalarFieldEnum)[keyof typeof TopicScalarFieldEnum]
+
+
   export const UserScalarFieldEnum: {
     id: 'id',
     active: 'active',
@@ -4907,6 +5068,7 @@ export namespace Prisma {
     phone?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
+    Topic?: TopicListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -4919,6 +5081,7 @@ export namespace Prisma {
     phone?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    Topic?: TopicOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = {
@@ -4956,10 +5119,10 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
   }
 
-  export type BlogWhereInput = {
-    AND?: Enumerable<BlogWhereInput>
-    OR?: Enumerable<BlogWhereInput>
-    NOT?: Enumerable<BlogWhereInput>
+  export type TopicWhereInput = {
+    AND?: Enumerable<TopicWhereInput>
+    OR?: Enumerable<TopicWhereInput>
+    NOT?: Enumerable<TopicWhereInput>
     id?: StringFilter | string
     title?: StringFilter | string
     content?: StringFilter | string
@@ -4967,9 +5130,11 @@ export namespace Prisma {
     image?: StringNullableFilter | string | null
     createdAt?: DateTimeFilter | Date | string
     updatedAt?: DateTimeFilter | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput> | null
+    userid?: StringFilter | string
   }
 
-  export type BlogOrderByWithRelationInput = {
+  export type TopicOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
@@ -4977,13 +5142,15 @@ export namespace Prisma {
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    userid?: SortOrder
   }
 
-  export type BlogWhereUniqueInput = {
+  export type TopicWhereUniqueInput = {
     id?: string
   }
 
-  export type BlogOrderByWithAggregationInput = {
+  export type TopicOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
@@ -4991,15 +5158,16 @@ export namespace Prisma {
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: BlogCountOrderByAggregateInput
-    _max?: BlogMaxOrderByAggregateInput
-    _min?: BlogMinOrderByAggregateInput
+    userid?: SortOrder
+    _count?: TopicCountOrderByAggregateInput
+    _max?: TopicMaxOrderByAggregateInput
+    _min?: TopicMinOrderByAggregateInput
   }
 
-  export type BlogScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<BlogScalarWhereWithAggregatesInput>
-    OR?: Enumerable<BlogScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<BlogScalarWhereWithAggregatesInput>
+  export type TopicScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<TopicScalarWhereWithAggregatesInput>
+    OR?: Enumerable<TopicScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<TopicScalarWhereWithAggregatesInput>
     id?: StringWithAggregatesFilter | string
     title?: StringWithAggregatesFilter | string
     content?: StringWithAggregatesFilter | string
@@ -5007,6 +5175,7 @@ export namespace Prisma {
     image?: StringNullableWithAggregatesFilter | string | null
     createdAt?: DateTimeWithAggregatesFilter | Date | string
     updatedAt?: DateTimeWithAggregatesFilter | Date | string
+    userid?: StringWithAggregatesFilter | string
   }
 
   export type LineUserWhereInput = {
@@ -5125,6 +5294,7 @@ export namespace Prisma {
     phone: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    Topic?: TopicCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -5137,6 +5307,7 @@ export namespace Prisma {
     phone: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    Topic?: TopicUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -5148,6 +5319,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Topic?: TopicUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -5159,6 +5331,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Topic?: TopicUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -5195,70 +5368,76 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type BlogCreateInput = {
+  export type TopicCreateInput = {
     id?: string
     title: string
     content: string
-    category?: BlogCreatecategoryInput | Enumerable<string>
+    category?: TopicCreatecategoryInput | Enumerable<string>
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutTopicInput
   }
 
-  export type BlogUncheckedCreateInput = {
+  export type TopicUncheckedCreateInput = {
     id?: string
     title: string
     content: string
-    category?: BlogCreatecategoryInput | Enumerable<string>
+    category?: TopicCreatecategoryInput | Enumerable<string>
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    userid: string
   }
 
-  export type BlogUpdateInput = {
+  export type TopicUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    category?: BlogUpdatecategoryInput | Enumerable<string>
+    category?: TopicUpdatecategoryInput | Enumerable<string>
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutTopicNestedInput
   }
 
-  export type BlogUncheckedUpdateInput = {
+  export type TopicUncheckedUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    category?: BlogUpdatecategoryInput | Enumerable<string>
+    category?: TopicUpdatecategoryInput | Enumerable<string>
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userid?: StringFieldUpdateOperationsInput | string
   }
 
-  export type BlogCreateManyInput = {
+  export type TopicCreateManyInput = {
     id?: string
     title: string
     content: string
-    category?: BlogCreatecategoryInput | Enumerable<string>
+    category?: TopicCreatecategoryInput | Enumerable<string>
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    userid: string
   }
 
-  export type BlogUpdateManyMutationInput = {
+  export type TopicUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    category?: BlogUpdatecategoryInput | Enumerable<string>
+    category?: TopicUpdatecategoryInput | Enumerable<string>
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type BlogUncheckedUpdateManyInput = {
+  export type TopicUncheckedUpdateManyInput = {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    category?: BlogUpdatecategoryInput | Enumerable<string>
+    category?: TopicUpdatecategoryInput | Enumerable<string>
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userid?: StringFieldUpdateOperationsInput | string
   }
 
   export type LineUserCreateInput = {
@@ -5423,6 +5602,16 @@ export namespace Prisma {
     not?: NestedDateTimeFilter | Date | string
   }
 
+  export type TopicListRelationFilter = {
+    every?: TopicWhereInput
+    some?: TopicWhereInput
+    none?: TopicWhereInput
+  }
+
+  export type TopicOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     active?: SortOrder
@@ -5505,7 +5694,12 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type BlogCountOrderByAggregateInput = {
+  export type UserRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type TopicCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
@@ -5513,24 +5707,27 @@ export namespace Prisma {
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    userid?: SortOrder
   }
 
-  export type BlogMaxOrderByAggregateInput = {
+  export type TopicMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    userid?: SortOrder
   }
 
-  export type BlogMinOrderByAggregateInput = {
+  export type TopicMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    userid?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter = {
@@ -5626,6 +5823,20 @@ export namespace Prisma {
     set: Enumerable<string>
   }
 
+  export type TopicCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<TopicCreateWithoutUserInput>, Enumerable<TopicUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<TopicCreateOrConnectWithoutUserInput>
+    createMany?: TopicCreateManyUserInputEnvelope
+    connect?: Enumerable<TopicWhereUniqueInput>
+  }
+
+  export type TopicUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<TopicCreateWithoutUserInput>, Enumerable<TopicUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<TopicCreateOrConnectWithoutUserInput>
+    createMany?: TopicCreateManyUserInputEnvelope
+    connect?: Enumerable<TopicWhereUniqueInput>
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -5639,11 +5850,45 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type BlogCreatecategoryInput = {
+  export type TopicUpdateManyWithoutUserNestedInput = {
+    create?: XOR<Enumerable<TopicCreateWithoutUserInput>, Enumerable<TopicUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<TopicCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<TopicUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: TopicCreateManyUserInputEnvelope
+    set?: Enumerable<TopicWhereUniqueInput>
+    disconnect?: Enumerable<TopicWhereUniqueInput>
+    delete?: Enumerable<TopicWhereUniqueInput>
+    connect?: Enumerable<TopicWhereUniqueInput>
+    update?: Enumerable<TopicUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<TopicUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<TopicScalarWhereInput>
+  }
+
+  export type TopicUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<Enumerable<TopicCreateWithoutUserInput>, Enumerable<TopicUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<TopicCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<TopicUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: TopicCreateManyUserInputEnvelope
+    set?: Enumerable<TopicWhereUniqueInput>
+    disconnect?: Enumerable<TopicWhereUniqueInput>
+    delete?: Enumerable<TopicWhereUniqueInput>
+    connect?: Enumerable<TopicWhereUniqueInput>
+    update?: Enumerable<TopicUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<TopicUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<TopicScalarWhereInput>
+  }
+
+  export type TopicCreatecategoryInput = {
     set: Enumerable<string>
   }
 
-  export type BlogUpdatecategoryInput = {
+  export type UserCreateNestedOneWithoutTopicInput = {
+    create?: XOR<UserCreateWithoutTopicInput, UserUncheckedCreateWithoutTopicInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTopicInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TopicUpdatecategoryInput = {
     set?: Enumerable<string>
     push?: string | Enumerable<string>
   }
@@ -5651,6 +5896,16 @@ export namespace Prisma {
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
     unset?: boolean
+  }
+
+  export type UserUpdateOneWithoutTopicNestedInput = {
+    create?: XOR<UserCreateWithoutTopicInput, UserUncheckedCreateWithoutTopicInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTopicInput
+    upsert?: UserUpsertWithoutTopicInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<UserUpdateWithoutTopicInput, UserUncheckedUpdateWithoutTopicInput>
   }
 
   export type LineUserCreatecategoryInput = {
@@ -5832,6 +6087,121 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type TopicCreateWithoutUserInput = {
+    id?: string
+    title: string
+    content: string
+    category?: TopicCreatecategoryInput | Enumerable<string>
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TopicUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    content: string
+    category?: TopicCreatecategoryInput | Enumerable<string>
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TopicCreateOrConnectWithoutUserInput = {
+    where: TopicWhereUniqueInput
+    create: XOR<TopicCreateWithoutUserInput, TopicUncheckedCreateWithoutUserInput>
+  }
+
+  export type TopicCreateManyUserInputEnvelope = {
+    data: Enumerable<TopicCreateManyUserInput>
+  }
+
+  export type TopicUpsertWithWhereUniqueWithoutUserInput = {
+    where: TopicWhereUniqueInput
+    update: XOR<TopicUpdateWithoutUserInput, TopicUncheckedUpdateWithoutUserInput>
+    create: XOR<TopicCreateWithoutUserInput, TopicUncheckedCreateWithoutUserInput>
+  }
+
+  export type TopicUpdateWithWhereUniqueWithoutUserInput = {
+    where: TopicWhereUniqueInput
+    data: XOR<TopicUpdateWithoutUserInput, TopicUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TopicUpdateManyWithWhereWithoutUserInput = {
+    where: TopicScalarWhereInput
+    data: XOR<TopicUpdateManyMutationInput, TopicUncheckedUpdateManyWithoutTopicInput>
+  }
+
+  export type TopicScalarWhereInput = {
+    AND?: Enumerable<TopicScalarWhereInput>
+    OR?: Enumerable<TopicScalarWhereInput>
+    NOT?: Enumerable<TopicScalarWhereInput>
+    id?: StringFilter | string
+    title?: StringFilter | string
+    content?: StringFilter | string
+    category?: StringNullableListFilter
+    image?: StringNullableFilter | string | null
+    createdAt?: DateTimeFilter | Date | string
+    updatedAt?: DateTimeFilter | Date | string
+    userid?: StringFilter | string
+  }
+
+  export type UserCreateWithoutTopicInput = {
+    id?: string
+    active: string
+    avatar: string
+    name: string
+    password: string
+    permissions?: UserCreatepermissionsInput | Enumerable<string>
+    phone: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutTopicInput = {
+    id?: string
+    active: string
+    avatar: string
+    name: string
+    password: string
+    permissions?: UserCreatepermissionsInput | Enumerable<string>
+    phone: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutTopicInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTopicInput, UserUncheckedCreateWithoutTopicInput>
+  }
+
+  export type UserUpsertWithoutTopicInput = {
+    update: XOR<UserUpdateWithoutTopicInput, UserUncheckedUpdateWithoutTopicInput>
+    create: XOR<UserCreateWithoutTopicInput, UserUncheckedCreateWithoutTopicInput>
+  }
+
+  export type UserUpdateWithoutTopicInput = {
+    active?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    permissions?: UserUpdatepermissionsInput | Enumerable<string>
+    phone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutTopicInput = {
+    active?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    permissions?: UserUpdatepermissionsInput | Enumerable<string>
+    phone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LineUserArticleCreateWithoutAuthorInput = {
     id?: string
     url: string
@@ -5929,6 +6299,43 @@ export namespace Prisma {
     category?: LineUserUpdatecategoryInput | Enumerable<string>
     url?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TopicCreateManyUserInput = {
+    id?: string
+    title: string
+    content: string
+    category?: TopicCreatecategoryInput | Enumerable<string>
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TopicUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: TopicUpdatecategoryInput | Enumerable<string>
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TopicUncheckedUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: TopicUpdatecategoryInput | Enumerable<string>
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TopicUncheckedUpdateManyWithoutTopicInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    category?: TopicUpdatecategoryInput | Enumerable<string>
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

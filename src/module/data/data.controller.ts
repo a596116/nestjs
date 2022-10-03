@@ -22,13 +22,13 @@ export class DataController {
         return await this.dataService.getAllUser(page, query)
     }
 
-    @Post('blog/:page')
+    @Post('topic/:page')
     @ApiOperation({
         summary: "查尋所有文章"
     })
     @UseInterceptors(TransformInterceptor) //格式化日期
-    async findAllBlog(@Param("page") page: number, @Body() query: object) {
-        return await this.dataService.getAllBlog(page, query)
+    async findAllTopic(@Param("page") page: number, @Body() query: object) {
+        return await this.dataService.getAllTopic(page, query)
     }
 
     @Put(':table')
