@@ -31,7 +31,10 @@ export class DataController {
         return await this.dataService.getAllTopic(page, query)
     }
 
-    @Put(':table')
+    /**
+     * 
+     */
+    @Put('topic')
     @ApiOperation({
         summary: "修改資料"
     })
@@ -51,12 +54,12 @@ export class DataController {
     //         })
     // }
 
-    @Post('create/:table')
+    @Post('create/topic')
     @ApiOperation({
         summary: "新增資料"
     })
-    async createData(@Param('table') table: string, @Body() obj: object) {
-        return await this.dataService.createData(table, obj)
+    async createTopic(@Param('table') table: string, @Body() obj: object) {
+        return await this.dataService.createTopic(table, obj)
     }
 
     @Delete(':table')

@@ -4,6 +4,7 @@ import { error, paginate, success } from 'src/common/helper'
 import { IResponse } from 'src/common/interface/response.interface'
 import { app } from 'src/config/app'
 import { PrismaService } from '../prisma/prisma.service'
+import { birthdayDto } from '../birthday/dto/bitrhdat.dto'
 
 @Injectable()
 export class DataService {
@@ -103,6 +104,45 @@ export class DataService {
         })
     }
 
+
+    /**
+     * 
+     * 新增資料區
+     * 
+     */
+    async createTopic(table: string, obj: object) {
+        return await this.prisma[table].create({
+            data: { ...obj }
+        }).then(() => {
+            return success('新增成功')
+        }).catch((err) => {
+            return error('新增失敗')
+        })
+    }
+
+    async createBirthday(obj: birthdayDto) {
+        return await this.prisma.birthday.create({
+            data: {
+                name: obj.name,
+                url: obj.url,
+                gift: {
+                    create: obj.gift
+                }
+            },
+            include: {
+                gift: true
+            }
+        }).then(() => {
+            return success('新增成功')
+        }).catch((err) => {
+            return error('新增失敗')
+        })
+    }
+
+
+
+
+
     /**
      * 修改資料
      * @date 2022-09-14
@@ -120,15 +160,11 @@ export class DataService {
         })
     }
 
-    async createData(table: string, obj: object) {
-        return this.prisma[table].create({
-            data: obj
-        }).then(() => {
-            return success('新增成功')
-        }).catch((err) => {
-            return error('新增失敗')
-        })
-    }
+
+    /**
+     * 刪除資料
+     * @date 2022-10-31
+     */
 
     async deleteData(table: string, id: string) {
         return this.prisma[table].delete({ where: { id } })

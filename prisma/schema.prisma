@@ -41,9 +41,9 @@ model Topic {
 
 model TopicTag {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tag       Tag      @relation(fields: [tagId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   tagId     String
-  topic     Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  topic     Topic    @relation(fields: [topicId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   topicId   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -66,6 +66,25 @@ model LineUserArticle {
   type      String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  author    LineUser? @relation(fields: [authorId], references: [id])
+  author    LineUser? @relation(fields: [authorId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   authorId  String
+}
+
+model Birthday {
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  url       String
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  gift      BirthdayGift[]
+}
+
+model BirthdayGift {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  img       String
+  p         String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      Birthday? @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  userId    String?   @db.ObjectId
 }

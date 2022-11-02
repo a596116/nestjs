@@ -19,6 +19,7 @@ specifiers:
   '@prisma/client': ^4.3.1
   '@types/express': ^4.17.13
   '@types/jest': 28.1.4
+  '@types/lodash-es': ^4.17.6
   '@types/multer': ^1.4.7
   '@types/node': ^16.11.56
   '@types/passport-jwt': ^3.0.6
@@ -34,6 +35,7 @@ specifiers:
   eslint-plugin-prettier: ^4.0.0
   ioredis: ^5.2.3
   jest: 28.1.2
+  lodash-es: ^4.17.21
   passport: ^0.6.0
   passport-jwt: ^4.0.0
   passport-local: ^1.0.0
@@ -71,6 +73,7 @@ dependencies:
   class-validator: 0.13.2
   crypto: 1.0.1
   ioredis: 5.2.3
+  lodash-es: 4.17.21
   passport: 0.6.0
   passport-jwt: 4.0.0
   passport-local: 1.0.0
@@ -88,6 +91,7 @@ devDependencies:
   '@nestjs/testing': 9.0.11_z6gh3n3qpn6ig2eqi2q57zofvq
   '@types/express': 4.17.13
   '@types/jest': 28.1.4
+  '@types/lodash-es': 4.17.6
   '@types/node': 16.11.56
   '@types/passport-local': 1.0.34
   '@types/supertest': 2.0.12
@@ -1932,6 +1936,16 @@ packages:
     dependencies:
       '@types/node': 16.11.56
     dev: false
+
+  /@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
+    dependencies:
+      '@types/lodash': 4.14.187
+    dev: true
+
+  /@types/lodash/4.14.187:
+    resolution: {integrity: sha512-MrO/xLXCaUgZy3y96C/iOsaIqZSeupyTImKClHunL5GrmaiII2VwvWmLBu2hwa0Kp0sV19CsyjtrTc/Fx8rg/A==}
+    dev: true
 
   /@types/mime/3.0.1:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
@@ -4435,6 +4449,10 @@ packages:
     dependencies:
       p-locate: 5.0.0
     dev: true
+
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
 
   /lodash.defaults/4.2.0:
     resolution: {integrity: sha512-qjxPLHd3r5DnsdGacqOMU6pb/avJzdh9tFX2ymgoZE27BmjXrNy/y4LoaiTeAb+O3gL8AfpJGtqfX/ae2leYYQ==}

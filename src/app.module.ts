@@ -6,6 +6,7 @@ import { ApiModule } from './module/api.module'
 // import { RedisModule } from '@liaoliaots/nestjs-redis'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { join } from 'path'
+import { BirthdayModule } from './module/birthday/birthday.module'
 import configs from './config/index'
 
 // const envFilePath: string = getEnvPath(`${__dirname}/common/envs`)
@@ -35,6 +36,7 @@ const envFilePath: string = getEnvPath(`../`)
       rootPath: join(__dirname, '..', 'public/upload'),
     }),
     ApiModule,
+    BirthdayModule,
   ],
 })
 export class AppModule { }

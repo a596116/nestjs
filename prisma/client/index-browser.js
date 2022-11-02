@@ -88,6 +88,23 @@ Prisma.NullTypes = {
 // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
 function makeEnum(x) { return x; }
 
+exports.Prisma.BirthdayGiftScalarFieldEnum = makeEnum({
+  id: 'id',
+  img: 'img',
+  p: 'p',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+});
+
+exports.Prisma.BirthdayScalarFieldEnum = makeEnum({
+  id: 'id',
+  name: 'name',
+  url: 'url',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+});
+
 exports.Prisma.LineUserArticleScalarFieldEnum = makeEnum({
   id: 'id',
   url: 'url',
@@ -117,15 +134,27 @@ exports.Prisma.SortOrder = makeEnum({
   desc: 'desc'
 });
 
+exports.Prisma.TagScalarFieldEnum = makeEnum({
+  id: 'id',
+  title: 'title'
+});
+
 exports.Prisma.TopicScalarFieldEnum = makeEnum({
   id: 'id',
   title: 'title',
   content: 'content',
-  category: 'category',
   image: 'image',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userid: 'userid'
+});
+
+exports.Prisma.TopicTagScalarFieldEnum = makeEnum({
+  id: 'id',
+  tagId: 'tagId',
+  topicId: 'topicId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 });
 
 exports.Prisma.UserScalarFieldEnum = makeEnum({
@@ -143,9 +172,13 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
 
 exports.Prisma.ModelName = makeEnum({
   User: 'User',
+  Tag: 'Tag',
   Topic: 'Topic',
+  TopicTag: 'TopicTag',
   LineUser: 'LineUser',
-  LineUserArticle: 'LineUserArticle'
+  LineUserArticle: 'LineUserArticle',
+  Birthday: 'Birthday',
+  BirthdayGift: 'BirthdayGift'
 });
 
 /**
