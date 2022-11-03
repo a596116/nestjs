@@ -13,15 +13,6 @@ export class DataController {
     @Inject(DataService)
     private readonly dataService: DataService
 
-    @Post('user/:page')
-    @ApiOperation({
-        summary: "查尋所有用戶"
-    })
-    @UseInterceptors(TransformInterceptor) //格式化日期
-    async findAllUser(@Param("page") page: number, @Body() query: object) {
-        return await this.dataService.getAllUser(page, query)
-    }
-
     @Post('topic/:page')
     @ApiOperation({
         summary: "查尋所有文章"
@@ -62,7 +53,7 @@ export class DataController {
         return await this.dataService.createTopic(table, obj)
     }
 
-    @Delete(':table')
+    @Delete('topic')
     @ApiOperation({
         summary: "刪除資料"
     })
